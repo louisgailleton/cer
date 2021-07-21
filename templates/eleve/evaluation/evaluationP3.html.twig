@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Évaluation préalable' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('evalPre') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row pt-4 pb-4">
+            <div class="col-12 text-center">
+                <h4 class="titreEval">Partie 3 : Évaluation des connaissances liées au code de la route</h4>
+            </div>
+        </div>
+        <div class="row pb-4 pt-4">
+            <div class="col-sm-12 col-12 col-md-6 col-lg-6 offset-lg-3 offset-md-3">
+                <p>Merci de mémoriser les étapes de l'installation du conducteur au poste de conduite :</p>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-lg-6 col-md-6 col-12 col-sm-12 offset-lg-3 offset-md-3 text-left">
+                <ul>
+                    <li>Siège en profondeur</li>
+                    <li>Siège en hauteur</li>
+                    <li>Inclinaison du dossier</li>
+                    <li>Appuie-tête</li>
+                    <li>Volant</li>
+                    <li>Rétroviseur intérieur</li>
+                    <li>Rétroviseurs extérieurs</li>
+                    <li>Ceinture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-lg-4 col-md-4 col-12 col-sm-12 offset-lg-4 offset-md-4 text-center">
+                <div class="col-lg-4 col-md-4 col-12 col-sm-12 offset-lg-4 offset-md-4">
+                    <a href="{{ path('eleve.evaluation.partie3') }}" class="btn" id="continue">Continuer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

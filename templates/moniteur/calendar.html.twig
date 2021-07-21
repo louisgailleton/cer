@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning
+{% endblock %}
+
+
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+	{{ encore_entry_link_tags('moniteurCalendarStyle') }}
+
+{% endblock %}
+
+{% block body %}
+		<div class="container">
+			<div class="row">
+				<div class="col-12" id='calendar'></div>
+			</div>
+		</div>
+
+		<div id="semaineModal" class="modal fade">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 id="semaineTypeTitle">Consultez votre semaine
+						</h4>
+						<button type="button" class="close closeSemaineType" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">fermer</span>
+						</button>
+
+					</div>
+					<div class="modal-body ">
+						<div class="container">
+							<div class='row'>
+								<div class='col-12' id='calendarSemaine'></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div id="optionModal" class="modal fade">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 id="semaineTypeTitle">Options
+						</h4>
+						<button type="button" class="close closeSemaineType" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">fermer</span>
+						</button>
+
+					</div>
+					<div class="modal-body ">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+
+									<form>
+										<div class="form-group">
+											<input id="btnDone" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-width="15%" data-off="En cours" data-on="Terminé">
+											<div class="right">
+												<h5>Choisissez un motif si vous voulez annuler le cours :</h5>
+												{% for motif in motifs %}
+
+													{% if motif.incident == false and motif.other == false %}
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio" name="radioMotif" id="{{motif.id}}">
+															<label class="form-check-label" for="{{motif.id}}">{{motif.libelle}}</label>
+														</div>
+													{% endif %}
+
+												{% endfor %}
+												<div class="form-check form-check-inline">
+													<input id="radioIncident" class="form-check-input" type="radio" name="radioMotif">
+													<label class="form-check-label" for="radioIncident">Incident</label>
+												</div>
+
+												<div class="form-check form-check-inline">
+													<input id="inputAutre" class="form-control" type="text" placeholder='Autre...'>
+
+												</div>
+											</div>
+										</div>
+										<div id="divIncident" class="form-group hide">
+											<select id="selectIncident" class="form-control">
+												<option value="default" selected disabled>Choisissez un incident</option>
+												{% for motif in motifs %}
+													{% if motif.incident %}
+
+														<option value="{{motif.id}}">{{motif.libelle}}</option>
+
+													{% endif %}
+												{% endfor %}
+											</select>
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id='cancelOption' class="btn btn-light" data-dismiss="modal" aria-hidden="true">Annuler</button>
+						<button disabled id="submitOption" type="button" class="btn btn-primary">
+							Confirmer
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+{% block javascripts %}
+<div data-rdv='{{ rdvs|raw }}'></div>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js" integrity="sha256-mMw9aRRFx9TK/L0dn25GKxH/WH7rtFTp+P9Uma+2+zc=" crossorigin="anonymous"></script>
+{{ encore_entry_script_tags('moniteurCalendar') }}{% endblock %}

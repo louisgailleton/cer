@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Évaluation préalable' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('evalPre') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-4 pb-4">
+        {{ form_start(form) }}
+            <div class="row pb-4">
+                <div class="col-12 text-center">
+                    <h4 class="titreEval">Partie 3 : Évaluation des connaissances liées au code de la route</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-12 offset-lg-4 offset-md-4">
+                    <div class="row pb-4">
+                        <img src="../../evalPre/photoPedales.png" alt="Photo des pédales d'une voiture" width="380px">
+                        {{ form_row(form.p3Q1) }}
+                    </div>
+                    <div class="row pb-4">
+                        <img src="../../evalPre/photoCommandePhare.png" alt="Photo d'une des commandes des phares" width="380px">
+                        {{ form_row(form.p3Q2) }}
+                    </div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p3Q3) }}
+                    </div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p3Q4) }}
+                    </div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p3Q5) }}
+                    </div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p3Q6) }}
+                    </div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p3Q7) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(form.p3Q8) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pt-4 pb-4">
+                <div class="col-12 pl-0">
+                    <h5 class="titreExo text-center">Cocher dans l'ordre les étapes de l'installation du conducteur</h5>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <div class="offset-lg-2 offset-md-2 col-lg-4 col-md-4 col-sm-6 col-6 pl-0">
+                    <ul class="listeEtapeInsta p-0">
+                        <li>
+                            <input type="checkbox" id="ceinture" name="etape" value="Ceinture">
+                            <label for="ceinture">Ceinture</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="siegeHauteur" name="etape" value="Siège en hauteur">
+                            <label for="siegeHauteur">Siège en hauteur</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="volant" name="etape" value="Volant">
+                            <label for="volant">Volant</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="retroInt" name="etape" value="Rétroviseur intérieur">
+                            <label for="retroInt">Rétroviseur intérieur</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="siegeProfondeur" name="etape" value="Siège en profondeur">
+                            <label for="siegeProfondeur">Siège en profondeur</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="appuieTete" name="etape" value="Appuie-tête">
+                            <label for="appuieTete">Appuie-tête</label>
+                        </li>
+                        <li>                                
+                            <input type="checkbox" id="retroExt" name="etape" value="Rétroviseur extérieur">
+                            <label for="retroExt">Rétroviseur extérieur</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="inclinaisonDossier" name="etape" value="Inclinaison du dossier">
+                            <label for="inclinaisonDossier">Inclinaison du dossier</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                    <ul class="listeEtapeInsta boldList text-right">
+                        <li id="installation0"></li>
+                        <li id="installation1"></li>
+                        <li id="installation2"></li>
+                        <li id="installation3"></li>
+                        <li id="installation4"></li>
+                        <li id="installation5"></li>
+                        <li id="installation6"></li>
+                        <li id="installation7"></li>
+                    </ul>
+                </div>
+            </div>
+            {{ form_row(form.installation) }}
+            <div class="row pt-4 pb-4">
+                <div class="offset-lg-3 offset-md-3 col-lg-6 col-md-6 col-sm-12 col-12 pl-0 text-center">
+                    <p id="messageErreurEval"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12 offset-lg-4 offset-md-4 text-center">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-12 offset-lg-4 offset-md-4 text-center">
+                        <button class="btn btn-success" id="validationEvalPre">{{ button|default("Valider") }}</button>
+                    </div>
+                </div>
+            </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('evalPreP3') }}
+{% endblock %}

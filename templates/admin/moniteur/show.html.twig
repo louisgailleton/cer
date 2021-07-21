@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Agences
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('crudAdminStyle') }}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+        <div class="row">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nom / Prénom</th>
+                    <th scope="col">Code Postal</th>
+                    <th scope="col">NB d'agences</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Taux de réussite</th>
+                    <th scope="col">Nombre de réussite</th>
+                    <th scope="col">Taux des 6 derniers mois</th>
+                    <th scope="col">NB de km/h</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for moniteur in moniteurs %}
+                {% set nbReussites = 0 %} {# Déclaration ici pour mettre global pour la boucle #}
+                    {% for eleve in moniteur.getEleves() %}
+                        {% if eleve.getExamenReussis() %}
+                            {% set nbReussites = nbReussites + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                <tr>   
+                    <th scope="row">{{ moniteur.getNom() }} {{ moniteur.getPrenom() }}</th>
+                    <td>{{ moniteur.getCodePostal() }}</td>
+                    <td>{{ moniteur.getAgence() | length }}</td>
+                    <td>{{ moniteur.getTelephone() }}</td>
+                    <td>{{ moniteur.getMail() }}</td>
+                    <td>{{ ((nbReussites/(moniteur.getEleves()|length)) | round(2, 'floor'))*100 }}%</td>
+                    <td>{{ nbReussites }}</td>
+                    <td>?1?</td>
+                    <td>?1?</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Connexion - Gérant" %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Connexion</h1>
+        {{ form_start(form) }}
+        {# <div class="row">
+            <div class="col-md-4">
+                {{ form_row(form.dateNaiss) }}
+                {{ form_row(form.tel) }}
+                {{ form_row(form.telParent) }}
+                {{ form_row(form.adresse) }}
+                {{ form_row(form.ville) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.cp) }}
+                {{ form_row(form.paysNaiss) }}
+                {{ form_row(form.depNaiss) }}
+                {{ form_row(form.villeNaiss) }}
+                {{ form_row(form.lunette) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.statutSocial) }}
+                <div id="inputLycee">{{ form_row(form.lycee) }}</div>
+                <div id="inputLyceeAutre">{{ form_row(form.lyceeAutre) }}</div>
+                <div id="inputMetier">{{ form_row(form.metier) }}</div>
+                <div id="inputNomSociete">{{ form_row(form.nomSociete) }}</div>
+                <div id="inputAdrSociete">{{ form_row(form.adresseSociete) }}</div>
+                <div id="inputVilleSociete">{{ form_row(form.villeSociete) }}</div>
+                <div id="inputCpSociete">{{ form_row(form.cpSociete) }}</div>
+            </div>
+        </div> #}
+        {{ form_rest(form) }}
+        <button class="btn btn-success">Valider</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('formulaire') }}
+{% endblock %}

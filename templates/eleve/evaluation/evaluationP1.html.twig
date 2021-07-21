@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Évaluation préalable' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('evalPre') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h4 class="titreEval pt-4 pb-4">Partie 1 : renseignement généraux</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-12 offset-md-4 offset-lg-4">
+                    {{ form_row(form.permis) }}
+                    <br>
+                    {{ form_row(form.expConduite) }}
+                    <br>
+                    {{ form_row(form.ou) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12 offset-lg-4 offset-md-4 text-center">
+                    <p id="messageErreurEval"></p>
+                    <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4">
+                        <button class="btn mt-4 mb-4" id="validationEvalPre">{{ button|default("Valider") }}</button>
+                    </div>
+                </div>
+            </div> 
+        
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('evalPreP1') }}
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portes Ouvertes{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('porteOuverte') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container p-4">
+        <h1 class='titrePorteOuverte mb-4'>Liste des journées d'informations</h1>
+        <table class="table borderless">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Heure début</th>
+                <th scope="col">Heure Fin</th>
+                <th scope="col">Lieu</th>
+                <th scope="col">Nb places dispo</th>
+                <th scope="col">Vous serez</th>
+                <th scope="col">S'inscrire</th>
+                <th scope="col">Annuler son inscription</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for po in portesOuvertes %}
+                {% set nbPlaceDispo = po.nbPlace %}
+                {% for eleve in po.eleve %}
+                    {% set nbPlaceDispo = nbPlaceDispo - eleve.nbPersonnePorteOuverte() %}
+                {% endfor %}
+                {% if nbPlaceDispo > 0 or (eleve.porteOuverte().id is defined and eleve.porteOuverte().id == po.id) %}
+                    <tr>
+                        <td>{{ po.date|date('d/m/Y') }}</td>
+                        <td>{{ po.heureDebut|date('H:i') }}</td>
+                        <td>{{ po.heureFin|date('H:i') }}</td>
+                        <td>{{ po.lieu.libelle }}</td>
+                        {# On calcul le nombre de place disponible #}
+                        <td class="texteGras">{{ nbPlaceDispo }}</td>
+                        {% if eleve.porteOuverte().id is defined and eleve.porteOuverte().id == po.id %}
+                            <td class="texteGras">
+                                <button type="button" class="btn btnInscription" data-toggle="modal" data-target="#modalPorteOuverte" data-idpo="{{ po.id }}" data-placedispo="{{ nbPlaceDispo }}" data-nbpersonne="{{ eleve.nbPersonnePorteOuverte() }}" id="btnInscriptionPo">{{ eleve.nbPersonnePorteOuverte() }}</button>
+                            </td>
+                        {% else %}
+                            <td class="texteGras">//</td>
+                        {% endif %}
+                        {#
+                        Si l'élève est déjà inscrit à une journée d'information,
+                        on active uniquement le bouton lui permettant de se désinscrire de cette journée
+                        Sinon on active tous les boutons lui permettant de s'inscrire à une journée d'information
+                        et on bloque les boutons qui permettent de se désincrire car il n'est inscrit à aucune journée
+                        #}
+                        {% if eleve.porteOuverte().id is defined and eleve.porteOuverte().id is not null %}
+                            {% if eleve.porteOuverte().id == po.id %}
+                                <td><button class="btn btnInscriptionDesactive" disabled>Je m'inscris</button></td>
+                                <td><a href="{{ path('eleve.annulationPorteOuverte') }}" class="btn btnAnnuler">Annuler mon inscription</a></td>
+                            {% else %}
+                                <td><button class="btn btnInscriptionDesactive" disabled>Je m'inscris</button></td>
+                                <td><button class="btn btnAnnulerDesactive" disabled>Annuler mon inscription</button></td>
+                            {% endif %}
+                        {% else %}
+                            <td><button type="button" class="btn btnInscription" data-toggle="modal" data-target="#modalPorteOuverte" data-idpo="{{ po.id }}" data-placedispo="{{ nbPlaceDispo }}" data-nbpersonne="{{ eleve.nbPersonnePorteOuverte() }}" id="btnInscriptionPo">Je m'inscris</button></td>
+                            <td><button class="btn btnAnnulerDesactive" disabled>Annuler mon inscription</button></td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="modalPorteOuverte" tabindex="-1" role="dialog" aria-labelledby="modalPorteOuverte" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPorteOuverte">Journée d'informations</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>En comptant les personnes qui vous accompagnent, combien serez-vous? (3 personnes max)</p>
+                    {{ form_start(form) }}
+                    {{ form_row(form.nbPersonne) }}
+                    {{ form_row(form.idPorteOuverte) }}
+                    {{ form_rest(form) }}
+                    <button class="btn btn-success">Valider</button>
+                    {{ form_end(form) }}
+                </div>
+                <div class="modal-footer">
+                    Vous pourrez modifier ce chiffre en cliquant dessus à tout moment
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('porteOuverteJs') }}
+{% endblock %}

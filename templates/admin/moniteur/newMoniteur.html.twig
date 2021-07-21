@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste moniteurs
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+{% block body %}
+	<h1 class='d-flex justify-content-center'>Ajouter un moniteur</h1>
+	<div class="container">
+		{{form_start(form)}}
+		{{form_rest(form)}}
+		<button class='btn btn-success'>Ajouter</button>
+		{{form_end(form)}}
+</div>{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Inscription" %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags ('formInscription') }}
+    {{ encore_entry_link_tags ('app') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid p-4">
+        <div class="row pb-4">
+            <div class="col-12 text-center">
+                <h1>Inscription</h1>
+            </div>
+        </div>
+        {{ form_start(form) }}
+            <div class="row pb-4">
+                <div class="col-12">
+                    <h3>Informations Principales</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.prenom) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.autrePrenoms) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.nom) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.nomUsage) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.dateNaiss) }}
+                </div>
+            </div>
+
+            <div class="row pb-4">
+                <div class="col-12">
+                    <h3>Coordonnées</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.adresse) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.ville) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.cp) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.telephone) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.telParent) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.mailParent) }}
+                </div>
+            </div>
+
+            <div class="row pb-4">
+                <div class="col-12">
+                    <h3>Informations Administratives</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.paysNaiss) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.depNaiss) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.villeNaiss) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.lunette) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.statutSocial) }}
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    <div id="inputLycee">{{ form_row(form.lycee) }}</div>
+                    <div id="inputMetier">{{ form_row(form.metier) }}</div>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    <div id="inputLyceeAutre">{{ form_row(form.lyceeAutre) }}</div>
+                    <div id="inputNomSociete">{{ form_row(form.nomSociete) }}</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                    {{ form_row(form.code) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+
+        {% if app.user.porteOuverte is defined and app.user.porteOuverte is not null %}
+            <button class="btn" id="validateForm">Valider</button>
+        {% else %}
+            <button class="btn" id="validateForm" disabled>Valider</button>
+            <p class="messageEtapePrecedente">Merci de valider les étapes précédentes avant de remplir le formulaire</p>
+        {% endif %}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('formulaire') }}
+{% endblock %}

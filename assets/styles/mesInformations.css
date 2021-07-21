@@ -1,0 +1,90 @@
+td {
+    text-align: center;
+}
+
+.borderless thead th:first-child {
+    border-top-left-radius: 20px;
+}
+
+.borderless thead td:last-child {
+    border-top-right-radius: 20px;
+}
+
+.borderless thead {
+    background-color:#F87217;
+    color: white;
+}
+
+.borderless > tbody > tr > td,
+.borderless > tbody > tr > th,
+.borderless > tfoot > tr > td,
+.borderless > tfoot > tr > th,
+.borderless > thead > tr > td,
+.borderless > thead > tr > th {
+    border: none;
+}
+
+.ligneBoutonInfo {
+    text-align: center;
+}
+
+#screen {
+    height: 100%;
+    width: 100%;
+}
+
+nav {
+    background-color: #F87217;
+}
+
+footer {
+    background-color: #0f2645;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+#modif, #modifMdp, #contrat {
+    border-radius: 20px;
+}
+
+#modif {
+    border: solid 1px #F87217;
+    background-color: #F87217;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#modif:hover {
+    background-color: transparent;
+    color: #F87217;
+}
+
+#modifMdp {
+    border: solid 1px #0f2645;
+    background-color: #0f2645;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#modifMdp:hover {
+    background-color: transparent;
+    color: #0f2645;
+}
+
+#contrat {
+    border: solid 1px #0f2645;
+    color: #0f2645;
+    background-color: transparent;
+}

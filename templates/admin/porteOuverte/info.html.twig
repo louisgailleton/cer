@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portes Ouvertes{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('porteOuverte') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class='titrePorteOuverte'>Liste des élèves</h1>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Lycée</th>
+                <th scope="col">Infos</th>
+                <th scope="col">Présent</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for eleve in eleves %}
+                <tr>
+                    <td>{{ eleve.prenom }}</td>
+                    <td>{{ eleve.nom }}</td>
+                    <td>{{ eleve.mail }}</td>
+                    <td>{{ eleve.telephone }}</td>
+                    {% if eleve.lycee is defined %}
+                        {% if eleve.lyceeAutre is defined %}
+                            <td>{{ eleve.lyceeAutre }}</td>
+                        {% else %}
+                            <td>{{ eleve.lycee }}</td>
+                        {% endif %}
+                    {% endif %}
+                    <td><a href="{{ path('admin.voirElevePo', {'id': eleve.id}) }}" class="btn btn-primary">Infos</a></td>
+                    <td>
+                        {% if eleve.presentJourneeInfo == "1" %}
+                            <a href="{{ path('admin.elevePresentPo', {'id': eleve.id}) }}" class="btn btn-success">Présent</a>
+                        {% elseif eleve.presentJourneeInfo == null %}
+                            <a href="{{ path('admin.elevePresentPo', {'id': eleve.id}) }}" class="btn btn-danger">Absent</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href='{{ path('admin.porteOuverte') }}' class='btn btn-warning'>Retour</a>
+    </div>
+{% endblock %}

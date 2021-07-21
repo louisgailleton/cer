@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Évaluation préalable' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('evalPre') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container pb-4 pt-4">
+        <h1 class="pb-4">Évaluation préalable</h1>
+        <p>Votre score : <span class="texteGras">{{ evalPre.scoreCode + evalPre.scoreConduite }} / 18</span></p>
+        <p>Nombre d'heure prévisionnel : <span class="texteGras">{{ evalPre.nbHeureTheorique }} heures théoriques et {{ evalPre.nbHeurePratique }} heures pratiques</span></p>
+        <p>
+            Il s'agit d'un nombre d'heures prévisionnel. Ce prévisionnel pourra être revu à la baisse ou à la hausse, par votre implication,
+            votre assiduité, ainsi que par la fréquence de vos heures de conduite. En cas de conduite accompagnée, ce nombre d'heures sera revue à la baisse.
+        </p>
+
+        <a href="{{ path('eleve.index') }}" class="btn mt-4" id="start">Continuer</a>
+    </div>
+{% endblock %}

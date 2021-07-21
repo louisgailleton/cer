@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes Commandes' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('commandes') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid p-4">
+        <h1 class="titreCommande pb-3">MES COMMANDES</h1>
+
+        <table class="table borderless table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Nombre produit</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Voir</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <th scope="row">N°{{ commande.id }}</th>
+                    <td>{{ commande.dateCommande|date("d/m/Y") }}</td>
+                    {% set prix, nbProd = 0, 0 %}
+                    {% for ligneCommande in commande.ligneCommandes %}
+                        {% set prix = prix + ligneCommande.produit.prix * ligneCommande.quantite %}
+                        {% set nbProd = nbProd + ligneCommande.quantite %}
+                    {% endfor %}
+                    <td>{{ prix }} €</td>
+                    <td>{{ nbProd }}</td>
+                    <td>{{ commande.etat }}</td>
+                    <td><a href={{ path('eleve.detailCommande', {'id': commande.id}) }}>Voir</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
+

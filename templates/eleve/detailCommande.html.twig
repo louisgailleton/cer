@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes Commandes' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('commandes') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1 class="titreCommande">Commande N° {{ commande.id }}</h1>
+
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Libellé</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set total = 0 %}
+            {% for ligneCommande in lignesCommande %}
+                <tr>
+                    <td>{{ ligneCommande.produit.nom }}</td>
+                    <td>{{ ligneCommande.produit.prix }} €</td>
+                    <td>{{ ligneCommande.quantite }}</td>
+                    <td>{{ ligneCommande.produit.prix * ligneCommande.quantite}} €</td>
+                    {% set total = total + ligneCommande.produit.prix * ligneCommande.quantite %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <th>TOTAL</th>
+                <td></td>
+                <td></td>
+                <td><span class="totalLigneCommande">{{ total }} €</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="{{ path('eleve.commandes') }}" class="btn btn-primary">Retour</a>
+    </div>
+{% endblock %}
+
+
+

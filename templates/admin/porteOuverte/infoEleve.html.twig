@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portes Ouvertes{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('porteOuverte') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class='titrePorteOuverte'>Informations de l'élève</h1>
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ eleve.prenom }}</td>
+            </tr>
+
+            {% if(eleve.autrePrenoms != null) %}
+                <tr>
+                    <th>Autre prénoms</th>
+                    <td>{{ eleve.autrePrenoms }}</td>
+                </tr>
+            {% endif %}
+
+            <tr>
+                <th>Nom</th>
+                <td>{{ eleve.nom }}</td>
+            </tr>
+
+            {% if(eleve.nomUsage != null) %}
+                <tr>
+                    <th>Nom d'usage</th>
+                    <td>{{ eleve.nomUsage }}</td>
+                </tr>
+            {% endif %}
+
+            <tr>
+                <th>Ville</th>
+                <td>{{ eleve.ville }}</td>
+            </tr>
+
+            <tr>
+                <th>Code postal</th>
+                <td>{{ eleve.cp }}</td>
+            </tr>
+
+            <tr>
+                <th>Statut social</th>
+                <td>{{ eleve.statutSocial }}</td>
+            </tr>
+
+            {% if(eleve.statutSocial == 'Lycéen.ne') %}
+                <tr>
+                    <th>Lycée</th>
+                    {% if(eleve.lycee != 'Autre lycée') %}
+                        <td>{{ eleve.lycee }}</td>
+                    {% else %}
+                        <td>{{ eleve.lyceeAutre }}</td>
+                    {% endif %}
+                </tr>
+
+            {% elseif(eleve.statutSocial == 'Salarié.e') %}
+                <tr>
+                    <th>Métier</th>
+                    <td>{{ eleve.metier }}</td>
+                </tr>
+                <tr>
+                    <th>Nom de l'employeur</th>
+                    <td>{{ eleve.nomSociete }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th>Date de naissance</th>
+                <td>{{ eleve.dateNaiss|date('d/m/Y') }}</td>
+            </tr>
+
+            <tr>
+                <th>Pays de naissance</th>
+                <td>{{ eleve.paysNaiss }}</td>
+            </tr>
+
+            <tr>
+                <th>Département de naissance</th>
+                <td>{{ eleve.depNaiss }}</td>
+            </tr>
+
+            <tr>
+                <th>Commune de naissance</th>
+                <td>{{ eleve.villeNaiss }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ eleve.mail }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ eleve.telephone }}</td>
+            </tr>
+            {% if(eleve.telParent != null) %}
+                <tr>
+                    <th>Téléphone parent</th>
+                    <td>{{ eleve.telParent }}</td>
+                </tr>
+            {% endif %}
+            {% if(eleve.mailParent != null) %}
+                <tr>
+                    <th>Mail parent</th>
+                    <td>{{ eleve.mailParent }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th>Lunette</th>
+                <td>{{ eleve.lunette }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <a href='{{ path('admin.voirPorteOuverte', {'id': eleve.porteOuverte.id}) }}' class='btn btn-warning'>Retour</a>
+    </div>
+{% endblock %}

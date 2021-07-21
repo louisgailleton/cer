@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Mon compte" %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags ('mesInformations') }}
+    {{ encore_entry_link_tags ('app') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid mt-4 mb-4" id="screen">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <table class="table borderless">
+                    <thead>
+                        <tr>
+                            <th>Informations Principales</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Prénom</th>
+                            <td>{{ eleve.prenom }}</td>
+                        </tr>
+
+                        {% if(eleve.autrePrenoms != null) %}
+                            <tr>
+                                <th>Autre prénoms</th>
+                                <td>{{ eleve.autrePrenoms }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <th>Nom</th>
+                            <td>{{ eleve.nom }}</td>
+                        </tr>
+
+                        {% if(eleve.nomUsage != null) %}
+                            <tr>
+                                <th>Nom d'usage</th>
+                                <td>{{ eleve.nomUsage }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <th>Statut social</th>
+                            <td>{{ eleve.statutSocial }}</td>
+                        </tr>
+
+                        {% if(eleve.statutSocial == 'Lycéen.ne') %}
+                            <tr>
+                                <th>Lycée</th>
+                                {% if(eleve.lycee != 'Autre lycée') %}
+                                    <td>{{ eleve.lycee }}</td>
+                                {% else %}
+                                    <td>{{ eleve.lyceeAutre }}</td>
+                                {% endif %}
+                            </tr>
+
+                        {% elseif(eleve.statutSocial == 'Salarié.e') %}
+                            <tr>
+                                <th>Métier</th>
+                                <td>{{ eleve.metier }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom de l'employeur</th>
+                                <td>{{ eleve.nomSociete }}</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <table class="table borderless">
+                    <thead>
+                        <tr>
+                            <th>Informations de naissance</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Date de naissance</th>
+                            <td>{{ eleve.dateNaiss|date('d/m/Y') }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Pays de naissance</th>
+                            <td>{{ eleve.paysNaiss }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Département de naissance</th>
+                            <td>{{ eleve.depNaiss }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Commune de naissance</th>
+                            <td>{{ eleve.villeNaiss }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <table class="table borderless">
+                    <thead>
+                        <tr>
+                            <th>Informations de contact</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Mail</th>
+                            <td>{{ eleve.mail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone</th>
+                            <td>{{ eleve.telephone }}</td>
+                        </tr>
+                        {% if(eleve.telParent != null) %}
+                            <tr>
+                                <th>Téléphone parent</th>
+                                <td>{{ eleve.telParent }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if(eleve.mailParent != null) %}
+                            <tr>
+                                <th>Mail parent</th>
+                                <td>{{ eleve.mailParent }}</td>
+                            </tr>
+                        {% endif %}
+                </tbody>
+            </table>
+
+            <div class="ligneBoutonInfo">
+                <a href="{{ path('eleve.information') }}" class="btn" id="modif">Modifier</a>
+                <a href="{{ path('eleve.modifMdp') }}" class="btn" id="modifMdp">Modifier Mdp</a>
+                {% if app.user.contratSigne == "1" %}
+                    <a href="{{ path('eleve.affichageContrat') }}" class="btn" id="contrat">Contrat</a>
+                {% endif %}
+                {% if(message is defined) %}
+                    {{ message }}
+                {% endif %}
+            </div>
+        </div>
+
+{% endblock %}

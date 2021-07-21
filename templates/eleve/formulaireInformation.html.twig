@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Mon Compte" %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Vos informations</h1>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-3">
+                {{ form_row(form.prenom) }}
+                {{ form_row(form.autrePrenoms) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.nomUsage) }}
+                {{ form_row(form.mail) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(form.dateNaiss) }}
+                {{ form_row(form.telephone) }}
+                {{ form_row(form.telParent) }}
+                {{ form_row(form.mailParent) }}
+                {{ form_row(form.adresse) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(form.ville) }}
+                {{ form_row(form.cp) }}
+                {{ form_row(form.paysNaiss) }}
+                {{ form_row(form.depNaiss) }}
+                {{ form_row(form.villeNaiss) }}
+                {{ form_row(form.lunette) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(form.statutSocial) }}
+                <div id="inputLycee2">{{ form_row(form.lycee) }}</div>
+                <div id="inputLyceeAutre2">{{ form_row(form.lyceeAutre) }}</div>
+                <div id="inputMetier2">{{ form_row(form.metier) }}</div>
+                <div id="inputNomSociete2">{{ form_row(form.nomSociete) }}</div>
+            </div>
+        </div>
+        <input type="hidden" id="statutSocial" value="{{ eleve.statutSocial }}">
+        <input type="hidden" id="lycee" value="{{ eleve.lycee }}">
+        <input type="hidden" id="lyceeAutre" value="{{ eleve.lyceeAutre }}">
+        <input type="hidden" id="metier" value="{{ eleve.metier }}">
+        <input type="hidden" id="nomSociete" value="{{ eleve.nomSociete }}">
+        {{ form_rest(form) }}
+        <button class="btn btn-success">Valider</button>
+        <a href="{{ path('eleve.donnees') }}" class="btn btn-primary">Retour</a>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('informations') }}
+{% endblock %}

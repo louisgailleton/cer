@@ -1,0 +1,29 @@
+.titreCommande {
+    text-align: center;
+}
+
+.totalLigneCommande {
+    font-weight: bold;
+}
+
+.borderless thead th:first-child {
+    border-top-left-radius: 20px;
+}
+
+.borderless thead th:last-child {
+    border-top-right-radius: 20px;
+}
+
+.borderless thead {
+    background-color:#F87217;
+    color: white;
+}
+
+.borderless > tbody > tr > td,
+.borderless > tbody > tr > th,
+.borderless > tfoot > tr > td,
+.borderless > tfoot > tr > th,
+.borderless > thead > tr > td,
+.borderless > thead > tr > th {
+    border: none;
+}

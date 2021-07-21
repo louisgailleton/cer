@@ -1,0 +1,266 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Conduite' %}
+
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+
+	{{ encore_entry_link_tags('eleveCalendarStyle') }}
+	{{ encore_entry_link_tags('app') }}
+
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<p class="msgSiteConstruction">La suite du site est en cours de développement. Il va falloir patienter encore quelques jours.</p>
+		<img src="../../img/construction-machine.gif" alt="Site en cours de construction" class="imgSiteConstruction">
+	</div>
+	{#<div class="container-fluid pt-4">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-12" id='calendar'></div>
+
+			<div id='moniteurPopover' class='offset-lg-1 offset-md-1 col-lg-3 col-md-3 col-sm-12'>
+				<table class="table borderless">
+					<caption class="text-left">Du
+						<span id='debut'>
+							{{debut|date('d/m/Y')}}</span>
+						au
+						<span id='fin'>{{fin|date('d/m/Y')}}</span>
+					</caption>
+					<thead>
+						<tr></tr>
+						<tr>
+
+							<th scope="col" id="bordure_gauche"></th>
+							<th scope="col">Moniteurs</th>
+							<th scope="col">Heures communes</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% set i = 0 %}
+						{% for moniteur in moniteurs %}
+							{% set i = i + 1 %}
+							<tr>
+								<td></td>
+								<td id="checkbox">
+									<input class="form-check-input" type="checkbox" id="{{moniteur.id}}" value="{{moniteur.id}}" checked>
+									<label id='nom_{{i}}' class="form-check-label" for="{{moniteur.id}}">{{moniteur.prenom ~ ' ' ~  moniteur.nom|upper }}</label>
+								</td>
+								<td id='heure_{{i}}'>{{moniteur.nbHeureCommun}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				<div class="align-self-center">
+					{% if eleve.forfait() == null %}
+						<h4 class="conduiteEtapeIns">Merci de valider les étapes précédentes avant d'accéder à votre calendrier de conduite</h4>
+					{% else %}
+						<button id="duplique" class="btn">Dupliquer ses disponibilités</button>
+						<p id='modeSentence' class="text-left">
+							{% if auto %}
+								Posez vos heures de conduite sur le planning.
+							{% else %}
+								Sélectionnez les plages du planning pour définir vos dispos.
+							{% endif %}
+						</p>
+						<div id="interruptorPopover" data-container="body" data-placement="top" data-trigger="focus" data-content="">
+							<input id="interruptor" type="checkbox" {% if auto == false %} disabled checked {% endif %} data-toggle="toggle" data-off="Réservation" data-on="Disponibilité" data-offstyle="success" data-onstyle="primary">
+							<span class="compteur">Compteur :
+							<span id="compteur">{{compteur}}</span>
+						</span>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="rdvModal" class="modal fade">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Prendre un rendez-vous de
+						<span id="debutRdv"></span>
+						à
+						<span id="finRdv"></span>
+						le
+						<span id="dateRdv"></span>
+					</h4>
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">fermer</span>
+					</button>
+
+				</div>
+				<div class="modal-body ">
+					<div class="row">
+
+
+						<div class='col-6'>
+							<label for="moniteur">Choisissez un Moniteur</label>
+							<select class="form-control" id="moniteur">
+								<option disabled selected value='default'>Moniteur</option>
+
+							</select>
+						</div>
+						<div id='divLieu' class='col-6'>
+							<label for="lieu">Choisissez un Lieu</label>
+							<select class="form-control" id="lieu"></select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" id="cancelButton" data-dismiss="modal" aria-hidden="true">Annuler</button>
+					<button id="submitButton" type="button" class="btn btn-primary" data-container="body" data-toggle="submitButton" data-placement="right" data-trigger="focus" data-content="">
+						Ajouter
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="heureModal" class="modal fade">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Modifier les dates d'heures communes</h4>
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">fermer</span>
+					</button>
+
+				</div>
+				<div class="modal-body ">
+					<div class="row">
+
+						<div class='col-6'>
+							<label for="heuresStart" class="col-2 col-form-label">Début</label>
+							<input class="form-control" type="date" id="heuresStart" value="{{debut}}">
+						</div>
+						<div class='col-6'>
+							<label for="heuresEnd" class="col-2 col-form-label">Fin</label>
+							<input class="form-control" type="date" id="heuresEnd" value="{{fin}}">
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="cancelButtonHeure" class="btn btn-light" data-dismiss="modal" aria-hidden="true">Annuler</button>
+					<button id="submitButtonHeure" type="button" class="btn btn-primary" data-container="body" data-toggle="submitButtonHeure" data-placement="right" data-trigger="focus" data-content="Les informations rentrées sont incorrectes.">
+						Ajouter
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row pt-4 pb-4"></div>
+		<div class="row pt-4 pb-4"></div>
+	</div>
+
+	<div id="part_2" class="container-fluid pt-5">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-6 col-6">
+						<h5 class="txt_orange text-uppercase">Compétences</h5>
+					</div>
+					<div class="offset-lg-2 offset-md-2 col-lg-6 col-md-6 col-sm-6 col-6 text-right">
+						<h5>
+							<span class="txt_orange text-uppercase">Niveau :</span>
+							15/30</h5>
+					</div>
+				</div>
+
+				<div class="row pb-2">
+					<div class="col-lg-10 col-md-10 col-sm-10 col-10">
+						<p>Nombre d'heures restantes à faire :</p>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-2 text-right">
+						<button class="text-center" id="btn_heures">21h</button>
+					</div>
+				</div>
+
+				<div id="countheure">
+					<p id="heure1">1h</p>
+					<p id="heure2">2h</p>
+					<p id="heure3">4h</p>
+					<p id="heure4">3h</p>
+					<p id="heure5">5h</p>
+					<p id="heure6">6h</p>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-5 col-md-5 col-sm-6">
+						<p class="ease_line" id="cp_1">
+							<a href="">C1 : Les bases</a>
+						</p>
+						<p class="ease_line" id="cp_2">
+							<a href="">C2 : Intersections</a>
+						</p>
+						<p class="ease_line" id="cp_3">
+							<a href="">C3 : Voies rapides</a>
+						</p>
+						<p class="ease_line" id="cp_4">
+							<a href="">C4 : Autonomie</a>
+						</p>
+						<p class="ease_line" id="cp_5">
+							<a href="">C5 : Manoeuvres</a>
+						</p>
+						<p class="ease_line" id="cp_6">
+							<a href="">C6 : Examen</a>
+						</p>
+					</div>
+
+					<div class="col-lg-7 col-md-7 col-sm-6">
+						<div class="base_1 col-11">
+							<p class="percent" id="c1">90%</p>
+						</div>
+						<div class="base_2 col-9">
+							<p class="percent" id="c2">75%</p>
+						</div>
+						<div class="base_3 col-6">
+							<p class="percent" id="c3">50%</p>
+						</div>
+						<div class="base_4 col-7">
+							<p class="percent" id="c4">60%</p>
+						</div>
+						<div class="base_5 col-4">
+							<p class="percent" id="c5">30%</p>
+						</div>
+						<div class="base_6 col-2">
+							<p class="percent" id="c6">10%</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-lg-6 col-sm-12 text-center">
+				<p id="cadre_competence">Clique sur une compétence à gauche</p>
+			</div>
+
+		</div>
+		<div class="row pt-4 pb-4">
+			<div class="col-12 text-center">
+				<div id="video_cadre">
+					<p>Vidéos relatives à la compétence sélectionnée</p>
+				</div>
+			</div>
+		</div>
+	</div>#}
+{% endblock %}
+{% block javascripts %}
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js" integrity="sha256-mMw9aRRFx9TK/L0dn25GKxH/WH7rtFTp+P9Uma+2+zc=" crossorigin="anonymous"></script>
+	<div data-entry-info='{{ data|raw }}'></div>
+	<div data-indispos='{{ indispos|raw }}'></div>
+	<div data-lieux='{{ lieux|raw }}'></div>
+	<div data-moniteurs='{{ moniteurs|json_encode|raw }}'></div>
+	<div data-eleve='{{ app.user.id }}'></div>
+	<div data-aac='{{ AAC|json_encode|raw }}'></div>
+	<div data-auto='{{ auto|json_encode|raw }}'></div>
+	<div data-examen='{{ dateExamen|json_encode|raw }}'></div>
+	{{ encore_entry_script_tags('eleveCalendar') }}
+{% endblock %}

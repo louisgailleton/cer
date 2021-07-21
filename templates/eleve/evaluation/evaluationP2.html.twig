@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Évaluation préalable' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('evalPre') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-4 pb-4">
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h4 class="titreEval">Partie 2 : Évaluation des connaissances liées au code de la route</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12 offset-lg-4 offset-md-4">
+                    <div class="row pt-4 pb-4">
+                        {{ form_row(form.p2Q1) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        <img src="../../evalPre/intersection.png" alt="photo intersection">
+                        {{ form_row(form.p2Q2) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        <img src="../../evalPre/panneauStationnement.png" alt="Panneau interdiction de stationnement">
+                        {{ form_row(form.p2Q3) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p2Q4) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        <img src="../../evalPre/photoRoute.png" alt="Photo route">
+                        {{ form_row(form.p2Q5) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p2Q6) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p2Q7) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        {{ form_row(form.p2Q8) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row pb-4">
+                        <img src="../../evalPre/photoMoteur.png" alt="Photo mouteur">
+                        {{ form_row(form.p2Q9) }}
+                    </div>
+                    <div class="row pt-4"></div>
+                    <div class="row">
+                        {{ form_row(form.p2Q10) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-4 col-4 text-center">
+                    <p id="messageErreurEval"></p>
+                    <div class="col-4 offset-4">
+                        <button class="btn" id="validationEvalPre">{{ button|default("Valider") }}</button>
+                    </div>
+                </div>
+            </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('evalPreP2') }}
+{% endblock %}

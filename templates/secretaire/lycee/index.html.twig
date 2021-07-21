@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lycée{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Liste des lycées</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for lycee in lycees %}
+                <tr>
+                    <td>{{ lycee.nom }}</td>
+                    <td>{{ lycee.adresse }}</td>
+                    <td><a href="{{ path('secretaire.modifLycee', {'nom': lycee.nom}) }}" class="btn btn-warning">modifier</a></td>
+                    <td>{{ include('secretaire/lycee/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Pas de lycées trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('secretaire.ajoutLycee') }}" class="btn btn-primary">Ajouter un lycée</a>
+    </div>
+{% endblock %}

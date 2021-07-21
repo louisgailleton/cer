@@ -1,0 +1,261 @@
+/*body {
+  color: #0f2645;
+}*/
+body{
+    background-color: #ffc600;
+}
+
+.fc-highlight{
+
+  background: #58d4c9 !important;
+  opacity: 30%;
+}
+caption {
+  caption-side: top;
+  font-size: 16px;
+  cursor: pointer;
+  color: #0f2645;
+}
+
+.cadre {
+  width: fit-content;
+}
+
+button {
+  margin-top: 2%;
+
+}
+
+#btnPlanning,
+#envoiDispo,
+#btnAnnuler {
+  display: none;
+  width: 100%;
+}
+#divLieu {
+  display: none;
+}
+
+td.fc-day.fc-past {
+  background-color: #eeeeee;
+}
+
+.fc-event-title {
+  font-size: 9px;
+  font-weight: bold;
+}
+
+#calendar {
+  max-width: 1100px;
+  margin: 0;
+}
+
+#modeSentence {
+  margin-bottom: 5%;
+  margin-top: 5%;
+  font-weight: bold;
+}
+
+.compteur{
+  font-size: 0.8em;
+}
+
+#duplique, #dispo, #rdv {
+  color: white;
+  background-color: #F87217;
+  border-radius: 20px;
+  border: 2px solid #F87217;
+  transition-property: all;
+  transition-duration: .5s;
+}
+
+#duplique:hover, #dispo:hover, #rdv:hover {
+  background-color: white;
+  color:#F87217;
+}
+
+#btn_heures {
+  color: white;
+  background-color: #F87217;
+  border-radius: 20px;
+  border: 2px solid #F87217;
+  transition-property: background-color, color;
+  transition-duration: .5s;
+}
+
+#btn_heures:hover {
+  background-color: white;
+  color:#F87217;
+}
+
+#cadre_competence {
+    vertical-align: middle;
+    line-height: 20rem;
+    border: solid 2px #0f2645;
+    border-radius: 20px;
+}
+
+#video_cadre {
+    vertical-align: middle;
+    line-height: 20rem; 
+    border: solid 2px #0f2645;
+    border-radius: 20px;
+}
+
+.txt_orange {
+  color: #F87217;
+}
+
+#btnchiffre:hover #heure_a_faire {
+  display:block;
+}
+
+#btnchiffre:hover #countheure {
+    display: inline;
+}
+
+#countheure {
+  display:none;
+}
+
+#heure1, #heure2, #heure3, #heure4, #heure5, #heure6 {
+  display:block;
+  z-index: 500;
+}
+
+thead {
+  color: #0f2645;
+}
+
+#checkbox {
+    text-align: left;
+}
+
+#moniteurPopover thead {
+    color: white;
+    background-color: #F87217;
+}
+
+#moniteurPopover thead th:first-child {
+    border-top-left-radius: 20px;
+}
+
+#moniteurPopover thead th:last-child {
+    border-top-right-radius: 20px;
+}
+
+#submitButtonHeure, #submitButton, #btnPlanning, #envoiDispo {
+  color: white;
+  background-color: #F87217;
+  border-radius: 20px;
+  border: 2px solid #F87217;
+  transition-property: background-color, color ;
+  transition-duration: .5s;
+}
+
+#submitButtonHeure:hover, #submitButton:hover, #submitButton:hover, #envoiDispo:hover {
+  background-color: white;
+  color:#F87217;
+}
+
+#cancelButtonHeure, #btnAnnuler, #CancelButton {
+  background-color: white;
+  color:#F87217;
+  border-radius: 20px;
+  border: 2px solid #F87217;
+}
+
+#part_2 a {
+    text-decoration: none;
+    color: #0f2645;
+}
+
+#part_2 a:hover {
+    text-decoration: none;
+    color: #0f2645;
+}
+
+.ease_line {
+    color: #0f2645;
+    text-decoration: none;
+}
+
+.ease_line::after {
+    content: '';
+    display:block;
+    width: 0;
+    height: 2px;
+    background: #0f2645;
+    transition: width .3s;
+}
+
+.ease_line:hover::after {
+    width:200px;
+    transition: width .3s;
+}
+
+.percent  {
+    margin-left: 0;
+}
+
+.base_1 {
+    border-radius: 20px;
+    background-color: #3BFF62;
+}
+
+.base_2 {
+    border-radius: 20px;
+    background-color: #FFAA00;
+}
+
+.base_3 {
+    border-radius: 20px;
+    background-color: #FFAA00;
+}
+
+.base_4 {
+    border-radius: 20px;
+    background-color: #FFAA00;
+}
+
+.base_5 {
+    border-radius: 20px;
+    background-color: #FF2020;
+}
+
+.base_6 {
+    border-radius: 20px;
+    background-color: #FF2020;
+}
+
+.fc-event-title {
+  font-size: 0.8em;
+}
+
+.underline:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+.borderless > tbody > tr > td,
+.borderless > tbody > tr > th,
+.borderless > tfoot > tr > td,
+.borderless > tfoot > tr > th,
+.borderless > thead > tr > td,
+.borderless > thead > tr > th {
+    border: none;
+}
+
+#dispo {
+    background-color: #F87217;
+}
+
+#resa {
+    background-color: #0f2645;
+}
+.tooltip-inner {
+  white-space:pre;
+  max-width:none;
+}
+.conduiteEtapeIns {
+    color: red
+}

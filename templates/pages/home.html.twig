@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('accueilChoix') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('accueilChoixJs') }}
+{% endblock %}
+
+{% block title 'CER' %}
+
+{% block body %}
+    <div class="container text-center align-self-center pt-4">
+        <div class="row h-100">
+            <div class="col-12 align-self-center">
+            
+                {% for agence in agences %}
+                    <button type="button" class="btn agence p-4 m-4" data-toggle="modal" data-target="#myModal{{ agence.id }}">
+                        <h3>
+                            {{ agence.nomAgence }}
+                        </h3>
+                    </button>
+                    <div class="modal fade" id="myModal{{ agence.id }}">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Choisir mon agence</h4>
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h1>{{ agence.nomAgence }}</h1>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>{{ agence.adresseAgence }}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>{{ agence.postalCode }}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>{{ agence.villeAgence }}</h4>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h6>{{ agence.telephoneAgence }}</h6>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a class="lienAgence" style="font-size: 2rem;" href="{{ agence.lieuAgence }}" target="_blank" title="Détail de l'emplacement de l'agence" data-toggle="popover" data-content="Cliquez pour être redirigé vers l'emplacement exact sur la carte">{{ agence.nomAgence }}</a>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <img src="{{ agence.imageAgence }}" height="250vh"></img>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn agence">
+                                        <a class="validerAgence" href="{{ path('inscription.choixAgence', {'id': agence.id}) }}">Valider cette agence</a>
+                                    </button>
+                                    <button type="button" class="btn modalBtn" data-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {# <button data-toggle="popover" title="Informations Agence" data-content="voici les informations de chaque agence" class="agence mb-4 mt-4"><a href="{{ path('inscription.choixAgence', {'id': agence.id}) }}">{{ agence.nomAgence }}</a></button> #}
+{% endblock %}

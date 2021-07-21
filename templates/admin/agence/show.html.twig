@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Agences
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+	<div class="container">
+        <div class="row">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Gérant Actuel</th>
+                    <th scope="col">Agence</th>
+                    <th scope="col">Code Postal Agence</th>
+                    <th scope="col">Nombre Moniteurs</th>
+                    <th scope="col">Nombre Elèves</th>
+                    <th scope="col">Ratio Moniteur/Elève</th>
+                    <th scope="col">Taux de réussite</th>
+                    <th scope="col">Nombre de réussite</th>
+                    <th scope="col">Confirmation</th>
+                    <th scope="col">Demande</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agence in agences %}
+                {% if agence.getStatut() != "Aucun" and agence.getDemande() != "Aucune" %}
+                    {% set nbMoniteurs = agence.getMoniteurs()|length %} {# Déclaration ici pour mettre global pour la boucle #}
+                    {% set nbEleves = agence.getEleves()|length %} {# Déclaration ici pour mettre global pour la boucle #}
+                    {% set nombreReussite = 0 %} {# Déclaration ici pour mettre global pour la boucle #}
+                    <tr>   
+                        <th scope="row">{{ agence.getGerant().getNom() }} {{ agence.getGerant().getPrenom() }}</th>
+                        <td>{{ agence.getNomAgence() }}</td>
+                        <td>{{ agence.getPostalCode() }}</td>
+                        <td><a href="{{ path('admin.show.moniteursagence', {id: agence.id} ) }}">{{ nbMoniteurs }}</a></td>
+                        <td>{{ nbEleves }}</td>
+                        {% if nbEleves == 0 or nbMoniteurs == 0 %}
+                            <td>0</td>
+                        {% else %}
+                            <td>{{ nbEleves/nbMoniteurs }}</td>
+                        {% endif %}
+                        {% for eleve in agence.getEleves() %}
+                            {% if eleve.getExamenReussi() %}
+                                {% set nombreReussite = nombreReussite + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if nbEleves == 0 or nombreReussite == 0 %}
+                            <td>0%</td>
+                        {% else %}
+                            <td>{{ (nombreReussite/nbEleves * 100) | round(2, 'floor') }}%</td>
+                        {% endif %}
+                        <td>{{ nombreReussite }}</td>
+                        <td>{{ agence.getStatut() }}</td>
+                        <td>{{ agence.getDemande() }}</td>
+                        <td><button class="btn btn-primary" onclick="if(confirm('Êtes-vous sûr ?')) window.location.replace('{{ path('admin.agence.acceptrequest', {id: agence.id} ) }}');">Accepter</button></td>
+                        <td><button class="btn btn-primary" onclick="if(confirm('Êtes-vous sûr ?')) window.location.replace('{{ path('admin.agence.refuserequest', {id: agence.id} ) }}');">Refuser</button></td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

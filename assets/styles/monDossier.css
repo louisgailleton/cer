@@ -1,0 +1,127 @@
+.titreDossier {
+    text-align: center;
+}
+
+.caseDossier {
+    margin-top: 20px;
+    border: 2px solid #0F2645;
+    border-radius: 20px;
+}
+
+.commentairePJ {
+    text-align: center;
+    color: red;
+}
+
+.nomPj {
+    font-weight: bold;
+    color:#F87217;
+}
+
+.ligneCase {
+    margin: 0 auto 10px;
+
+}
+
+.infoJustif {
+    font-size: 0.9em;
+    color: blue;
+}
+
+.questionJustifDom {
+    margin: auto;
+    font-weight: bold;
+}
+
+#consigneAttestation {
+    display: none;
+}
+
+.etapesPreDossier {
+    text-align: center;
+    color: red;
+}
+
+.boutons {
+    border-radius: 20px;
+    color: white;
+    background-color: #F87217;
+    border: 1px #F87217 solid;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+
+}
+
+.boutons:hover {
+    background-color: white;
+    color: #F87217;
+    border: 1px #F87217 solid;
+}
+
+.boutons2 {
+    border: 1px solid #0F2645;
+    background-color: #0F2645;
+    color: white;
+    transition-property: color;
+    transition-duration: .5s;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: .45em;
+    padding-right: .45em;
+    font-size:1.2em;
+    border-radius: 20px;
+
+}
+
+.boutons2:hover {
+    color: #0F2645;
+    background-color: transparent;
+    border: #0F2645 solid 1px;
+}
+
+.titreCase {
+    border: transparent;
+    background-color: transparent;
+    color: #F87217;
+    padding: 0 !important;
+    font-size:1.2em;
+    text-align: left;
+}
+
+.titreCase:hover {
+    border: transparent;
+    background-color: transparent;
+    color: #F87217;
+
+}
+
+.btnValider {
+    border-radius: 20px;
+    color: white;
+    background-color: #F87217;
+    border: 1px #F87217 solid;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+.btnValider:hover {
+    background-color: white;
+    color: #F87217;
+    border: 1px #F87217 solid;
+}
+
+@media (min-width: 320px) {
+    h5 {font-size:.75rem;} /*1rem = 16px*/
+  }
+
+@media (min-width: 768px) {
+    h5 {font-size:.8rem;} /*1rem = 16px*/
+    }
+
+@media (min-width: 992px) {
+    h5 {font-size:1rem;} /*1rem = 16px*/
+    }
+
+
+
+

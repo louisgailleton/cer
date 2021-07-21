@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion indisponibilités
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('crudIndispo') }}
+{% endblock %}
+
+{% block body %}
+	<h1 class='d-flex justify-content-center'>Gestion des indisponibilités de
+		{{moniteur.username}}</h1>
+	<div class="container">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Début</th>
+					<th scope="col">Fin</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+				{% set i = 0 %}
+				{% for indispo in indispos %}
+					{% set i = i + 1 %}
+					<tr>
+						<th scope="row">{{i}}</th>
+						<td>{{indispo.start |date('d/m/Y H:i')}}h</td>
+						<td>{{indispo.end |date('d/m/Y H:i' )}}h</td>
+						<td>
+						<div class='row'>
+						
+							<a href="{{ path('indispo.edit', {'id': indispo.id}) }}" class='btn btn-primary'>Editer</a>
+								<form method="post" action="{{ path('indispo.delete', {'id': indispo.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette indisponibilité ?');">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ indispo.id) }}">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+							</div>
+						</td>
+					</tr>
+
+
+				{% endfor %}
+
+			</tbody>
+		</table>
+		<a href="{{ path('indispo.pageNewIndispo', {'id': moniteur.id}) }}" class='btn btn-success'>Ajouter</a>
+	</div>
+
+
+</div>
+<div>
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('crud') }}{% endblock %}

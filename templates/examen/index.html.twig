@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('examenCss') }}
+{% endblock %}
+
+{% block body %}
+	<main>
+		<div class="container p-4">
+			<ul class="nav nav-tabs justify-content-center" id="tabContent">
+				{% set i = 0 %}
+				{% for lieu in lieuxExamen %}
+					{% set i = i + 1 %}
+					<li class="nav-item">
+						<a class="nav-link {{ (i == 1) ? 'active' : '' }}" href="#lieu{{lieu.id}}" data-toggle="tab">{{lieu.libelle}}</a>
+					</li>
+				{% endfor %}
+			</ul>
+
+			<div class="tab-content">
+				{% set i = 0 %}
+				{% for lieu in lieuxExamen %}
+					{% set i = i + 1 %}
+					<div class="tab-pane {{ (i == 1) ? 'active' : '' }}" id="lieu{{lieu.id}}">
+
+						<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Moniteur</th>
+									<th scope="col">Pl. Demandées</th>
+									<th scope="col">Pl. Attribuées</th>
+									<th scope="col">Pl. Utilisées</th>
+									<th scope="col">Réussite</th>
+									<th scope="col">%Réussite</th>
+								</tr>
+							</thead>
+							<tbody id='dispoContent'>
+								{% for moniteur in moniteurs %}
+									{% for place in placeExamen %}
+										{% if moniteur.id == place.moniteur.id and lieu.id == place.lieu.id %}
+
+											<tr>
+												<th scope="row">{{moniteur.prenom}}</th>
+												<td>{{ place.nbPlaceDemande ? place.nbPlaceDemande : 0 }}</td>
+												<td>{{ place.nbPlaceAttribuee ? place.nbPlaceAttribuee : 0}}</td>
+												<td>{{ place.nbPlaceUtilise ? place.nbPlaceUtilise : 0}}</td>
+												<td>{{ moniteur.nbReussite}}</td>
+												<td>{{place.nbPlaceUtilise == 0 or moniteur.nbReussite == 0 ? 0 : moniteur.nbReussite / place.nbPlaceUtilise * 100 }}%</td>
+											</tr>
+										{% endif %}
+									{% endfor %}
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				{% endfor %}
+
+			</div>
+		</div>
+	</main>
+
+</div>{% endblock %}{% block javascripts %}{% endblock %}

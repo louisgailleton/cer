@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('boutique') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+{% block title %}Boutique{% endblock %}
+
+{% block body %}
+    <div class="part_4 container-fluid p-4">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                {% for type in typesPresta %}
+                    <h4>{{ type.nom }}</h4>
+                    <br>
+                    <div class="row">
+                        {% for presta in prestations %}
+                            {% if type.nom == presta.type.nom %}
+                                <div class="col-4 produitBoutique">
+                                    <form method="post" action="{{ path('eleve.ajoutPanier') }}">
+                                        <input type="hidden" name="produit" value="{{ presta.id }}">
+                                        <button class="btn btn_presta p-4" title="Détail de la prestation" data-toggle="popover" data-content="{{ presta.detail }}">
+                                            <br>
+                                            {{ presta.nom }}
+                                            <br>
+                                            <br>
+                                            {{ presta.prix }} €
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-3 col-md-3 offset-md-1 offset-lg-1 col-sm-12">
+                <div class="container">
+                    <div class="row p-4 droite">
+                        <div class="col-12">
+                            <div class="row">
+                                <h2>Panier</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                <ul>
+                                    {% set prix = 0 %}
+                                    {% for contenu in panier %}
+                                        {% set prix = prix + (contenu.produit.prix * contenu.quantite) %}
+                                        <form method="post" action="{{ path('eleve.supprPanier') }}">
+                                            <li class="pb-4">{{ contenu.produit.nom }} x {{ contenu.quantite }} : {{ contenu.produit.prix * contenu.quantite }} €
+                                                <button class="btn float-right btn-suppr">X</button>
+                                            </li>
+                                            <input type="hidden" name="produit" value="{{ contenu.produit.id }}">
+                                        </form>
+                                    {% endfor %}
+                                </ul>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p class="bold_text" id="total_price">Total : <span class="totalPanier">{{ prix }} €</span></p>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-12 p-0">
+                                    {% if eleve.forfait() == null %}
+                                        <p class="messageEtapePrecedenteBoutique">Merci de valider les étapes précédentes avant d'effectuer un achat dans la boutique</p>
+                                    {% else %}
+                                        {#<a href="{{ path('eleve.ajoutCommande') }}" class="btn" id="btn_payer">Valider mon panier</a>#}
+                                        <button class="btn" id="btn_payer">Valider mon panier</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('boutiqueJS') }}
+{% endblock %}

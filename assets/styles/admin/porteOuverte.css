@@ -1,0 +1,75 @@
+.titrePorteOuverte {
+    text-align: center;
+}
+
+.borderless thead th:first-child {
+    border-top-left-radius: 20px;
+}
+
+.borderless thead th:last-child {
+    border-top-right-radius: 20px;
+}
+
+.borderless thead {
+    background-color:#F87217;
+    color: white;
+}
+
+.borderless > tbody > tr > td,
+.borderless > tbody > tr > th,
+.borderless > tfoot > tr > td,
+.borderless > tfoot > tr > th,
+.borderless > thead > tr > td,
+.borderless > thead > tr > th {
+    border: none;
+}
+
+.btnInscription {
+    border-radius: 20px;
+    background-color: #F87217;
+    border: 2px #F87217 solid;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+.btnInscription:hover {
+    color: #F87217;
+    background-color: transparent;
+}
+
+.btnAnnuler {
+    border-radius: 20px;
+    background-color: #0f2645;
+    border: 2px #0f2645 solid;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+.btnAnnuler:hover {
+    color: #0f2645;
+    background-color: transparent;
+}
+
+.btnInscriptionDesactive {
+    border-radius: 20px;
+    background-color: #F87217;
+    border: 2px #F87217 solid;
+    color: white;
+}
+
+.btnAnnulerDesactive {
+    border-radius: 20px;
+    background-color: #0f2645;
+    border: 2px #0f2645 solid;
+    color: white;
+}
+
+.btnAnnulerDesactive:hover, .btnInscriptionDesactive:hover{
+    color: white !important;
+}
+
+.texteGras {
+    font-weight: bold;
+}

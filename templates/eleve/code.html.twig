@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Code' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('code') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <p class="msgSiteConstruction">La suite du site est en cours de développement. Il va falloir patienter encore quelques jours.</p>
+        <img src="../../img/construction-machine.gif" alt="Site en cours de construction" class="imgSiteConstruction">
+        {#<div class="row pb-2">
+            <div class="offset-lg-6 offset-md-6 col-lg-3 col-md-3 col-sm-12">
+                <h3 class="text_video2_part_1 text-lg-right text-md-right">Compétence 1 : Les Bases</h3>
+            </div>
+        </div>
+
+        <div class="row pb-5">
+            <div class="col-lg-9 col-md-9 col-sm-12 pb-2">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4fl_lInqFvw" options=""></iframe>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <p class="text_code_part_1">
+                    Lien vers prépacode <br><br>
+                    Identifiant : <br>
+                    <span class="grey_text">MLionel1993.1</span><br>
+                    Mot de passe :<br>
+                    <span class="grey_text"><span id="mouseup">Survoler pour voir</span></span>
+                </p>
+            </div>
+        </div>#}
+    </div>
+{% endblock %}
+
+
+

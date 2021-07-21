@@ -1,0 +1,32 @@
+body{
+    background-color: #ffc600;
+}
+
+#deja_code {
+    border-radius: 20px;
+    background-color: #F87217;
+    border: 1px #F87217 solid;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#deja_code:hover {
+    color: #F87217;
+    background-color: transparent;
+    border: 1px #F87217 solid;
+}
+
+#deja_code a {
+    text-decoration: none;
+    color: white;
+}
+
+#deja_code a:hover {
+    text-decoration: none;
+    color: #F87217;
+}
+
+.grey_text {
+    color: grey;
+}
+

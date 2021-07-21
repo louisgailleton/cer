@@ -1,0 +1,19 @@
+nav {
+    background-color: #F87217;
+}
+
+footer {
+    background-color: #0f2645;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: white;
+}

@@ -1,0 +1,43 @@
+#tableauEnAttente_wrapper {
+    display: none;
+}
+
+#tableauATraiter_wrapper {
+    display: none;
+}
+
+#tableauSaisiANTS_wrapper {
+    display: none;
+}
+
+#tableauEnregistre_wrapper {
+    display: none;
+}
+
+.listeElevesInfos {
+    border: 1px solid black;
+}
+
+#infoLycee {
+    display: none;
+}
+
+#infoLyceeAutre {
+    display: none;
+}
+
+#infoMetier {
+    display: none;
+}
+
+#infoSociete {
+    display: none;
+}
+
+.msgErreurListeEleves {
+    color: red;
+}
+
+.secretairePJ {
+    margin-bottom: 40px;
+}

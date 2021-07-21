@@ -1,0 +1,87 @@
+#forfaitChoisi {
+    font-size: 1.3rem;
+}
+
+.caseForfait {
+    border: 2px solid #0f2645;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    height: 250px;
+    text-align: center;
+    background-color: #0f2645;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+.caseForfaitChoisi {
+    background-color: #F87217 !important;
+    border: 2px solid #F87217 !important;
+}
+
+.caseForfait:hover {
+    background-color: transparent;
+    color: #0f2645;
+}
+
+.detailForfait {
+    border: 2px solid #0f2645;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    min-height: 20vh;
+}
+
+.panierForfait {
+    height: 300px;
+    border: 2px solid #0f2645;
+    border-radius: 20px;
+}
+
+.prixForfaitPanier {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#signerContrat {
+    display: none;
+}
+
+#signerContrat {
+    border-radius: 20px;
+    background-color: #F87217;
+    border: 2px #F87217 solid;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#signerContrat:hover {
+    color: #F87217;
+    background-color: transparent;
+}
+
+#ajoutForfaitPanier {
+    border-radius: 20px;
+    background-color: #F87217;
+    border: 2px #F87217 solid;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#ajoutForfaitPanier:hover {
+    color: #F87217;
+    background-color: transparent;
+}
+
+button p {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.etapesPreForfait {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5em;
+}

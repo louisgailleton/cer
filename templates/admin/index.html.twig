@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Connexion</th>
+						<th scope="col">Fiche</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Prénom</th>
+						<th scope="col">Agences</th>
+						<th scope="col">Moniteurs</th>
+						<th scope="col">Nombre d'élèves</th>
+						<th scope="col">Ratio Elève/Moniteur</th>
+						<th scope="col">Taux de réussite</th>
+						<th scope="col">Nombre de réussite</th>
+						<th scope="col">Suppression</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for gerant in gerants %}
+
+						{% set nbMoniteurs = 0 %}
+						{# Déclaration ici pour mettre global pour la boucle #}
+						{% set nbEleves = 0 %}
+						{# Déclaration ici pour mettre global pour la boucle #}
+						{% set ratioEleveMoniteur = 0 %}
+						{# Déclaration ici pour mettre global pour la boucle #}
+						{% set nombreReussiteAgence = 0 %}
+						{# Déclaration ici pour mettre global pour la boucle #}
+						<tr>
+							<th scope="row">
+								<a href="{{ path('login') }}">
+									<button class="btn btn-primary">Connexion</button>
+								</a>
+							</th>
+							<td>
+								<button name="editGerant" value="{{gerant.id}}" class="btn btn-primary">Fiche</button>
+							</td>
+							<td>{{ gerant.nom }}</td>
+							<td>{{ gerant.prenom }}</td>
+							<td>{{ gerant.getAgences() | length }}</td>
+							{% for agence in gerant.getAgences() %}
+								{% set nbMoniteurs = nbMoniteurs + agence.getMoniteurs()|length %}
+								{% set nbEleves = nbEleves + agence.getEleves()|length %}
+
+								{% for eleve in agence.getEleves() %}
+									{% if eleve.getExamenReussi() %}
+										{% set nombreReussiteAgence = nombreReussiteAgence + 1 %}
+									{% endif %}
+								{% endfor %}
+							{% endfor %}
+							{% if nbEleves == 0 or nbMoniteurs == 0 %}
+								{% set ratioEleveMoniteur = 0 %}
+							{% else %}
+								{% set ratioEleveMoniteur = nbEleves/nbMoniteurs %}
+							{% endif %}
+							<td>{{ nbMoniteurs }}</td>
+							<td>{{ nbEleves }}</td>
+							<td>{{ ratioEleveMoniteur }}</td>
+							{% if nbEleves == 0 or nombreReussiteAgence == 0 %}
+								<td>0</td>
+							{% else %}
+								<td>{{ (nombreReussiteAgence/nbEleves * 100) | round(2, 'floor') }}%</td>
+							{% endif %}
+							<td>{{ nombreReussiteAgence }}</td>
+							<td>
+								<a href="{{ path('gerant.delete', {id: gerant.id} ) }}">
+									<button class="btn btn-danger">Supprimer</button>
+								</a>
+							</td>
+						</tr>
+
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="mdpModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">Sécurité</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Saisissez vos mots de passe principal et secondaire.</p>
+					<div class="col text-center">
+						<form class="form-inline" action="{{ path('admin.checkMdp' ) }}" method="post">
+							<input type="password" class="form-control mb-2 mr-sm-2" name="mdpPrincipal" placeholder="Mot de passe principal">
+							<input type="password" class="form-control mb-2 mr-sm-2" name="mdpSecondaire" placeholder="Mot de passe secondaire">
+                            <input name="idGerant" type="hidden" value=""/>
+							<input type="hidden" name="token" value="{{ csrf_token('checkMdp') }}"/>
+						</div>
+						<div class="col text-center">
+							<button id="VerifMdp" type="submit" class="btn btn-primary text-center">Vérifier</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('modalMdp') }}
+{% endblock %}

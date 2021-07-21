@@ -1,0 +1,47 @@
+.btn {
+    border: solid 1px #F87217;
+    border-radius: 20px;
+    background-color: #F87217;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+.btn:hover {
+    color: #F87217;
+    background-color: transparent;
+}
+
+#mdpPerdu {
+    border: solid 1px #0f2645;
+    border-radius: 20px;
+    background-color: #0f2645;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#mdpPerdu:hover {
+    background-color: transparent;
+    color: #0f2645;
+}
+
+nav {
+    background-color: #F87217;
+}
+
+footer {
+    background-color: #0f2645;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: white;
+}

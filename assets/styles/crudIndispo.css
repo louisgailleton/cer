@@ -1,0 +1,19 @@
+div>a{
+    margin-right: 1%;
+}
+
+#btnModifierIndispo, #btnPlus, #btnMoins{
+   margin-top: 1%;
+}
+
+#btnPlus{
+    margin-left: 3.5%;
+}
+
+#btnMoins{
+    display: none;
+}
+
+span{
+    font-weight: bold;
+}

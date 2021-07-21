@@ -1,0 +1,77 @@
+.agence {
+    background-color: #F87217;
+    color: white;
+    border-radius: 50px;
+    border: 1px solid #F87217;
+    transition-property: all;
+    transition-duration: .5s;
+}
+
+.agence:hover {
+    text-decoration: none;
+    background-color: transparent;
+    color: #F87217;
+}
+
+.modalBtn {
+    background-color: #0f2645;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid #0f2645;
+    transition-property: all;
+    transition-duration: .5s;
+}
+
+.modalBtn:hover {
+    background-color: transparent;
+    color: #0f2645;
+}
+
+.validerAgence {
+    text-decoration: none;
+    color: white;
+}
+
+.validerAgence:hover {
+    text-decoration: none;
+    color: #F87217;
+}
+
+.container {
+    height: 100vh;
+}
+
+
+nav {
+    background-color: #F87217;
+    z-index: 500;
+}
+
+footer {
+    background-color: #0f2645;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.lienAgence {
+    text-decoration: none;
+    color: #0f2645;
+    transition-property: color;
+    transition-duration: .5s;
+    font-weight: bold;
+}
+
+.lienAgence:hover {
+    text-decoration: none;
+    color: #F87217;
+    font-weight: bold;
+}

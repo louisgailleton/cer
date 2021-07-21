@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CONTRAT</title>
+        <style>
+            .titreContrat {
+                text-align: center;
+                border: 1px solid black;
+                font-weight: bold;
+            }
+
+            .sousTitreContrat {
+                font-weight: bold;
+            }
+
+            .titrePartie {
+                margin-top: 40px;
+                text-align: center;
+                font-weight: bold;
+                border: 1px solid black;
+            }
+
+            .listeInfos {
+                list-style-type: none;
+            }
+
+            .paragraphe {
+                margin-bottom: 0px;
+            }
+
+            .formuleContrat {
+                color: red;
+                text-align: center;
+                text-decoration: underline;
+                font-weight: bold;
+            }
+            .signatures {
+                margin-bottom: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container" id="contenuContrat">
+            {% set professionnelle = "" %}
+            {% if eleve.statutSocial == "Salarié.e" or eleve.statutSocial == "Sans emploi" %}
+                {% set professionnelle = "PROFESSIONNELLE" %}
+            {% endif %}
+            <h1 class="titreContrat">CONTRAT DE FORMATION {{ professionnelle }}</h1>
+            <h4 class="sousTitreContrat">ENTRE LES PARTIES</h4>
+
+            <div>
+                <h4 class="titrePartie">VOUS</h4>
+                <ul class="listeInfos">
+                    <li>Nom et prénom : {{ eleve.nom }} {{ eleve.prenom }}</li>
+                    <li>Né(e) le : {{ dateNaiss }} à {{ eleve.villeNaiss }}</li>
+                    <li>Adresse : {{ eleve.adresse }}</li>
+                    <li>Code postal : {{ eleve.cp }}, {{ eleve.ville }}</li>
+                    <li>Téléphone : {{ eleve.telephone }}</li>
+                    <li>Mail : {{ eleve.mail }}</li>
+                    <li>Statut social : {{ eleve.statutSocial }}</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="titrePartie">L'AUTO-ÉCOLE</h4>
+                <ul class="listeInfos">
+                    <li>Agence : {{ agence.nomAgence }}, {{ agence.adresseAgence }}</li>
+                    <li>SIRET : {{ agence.SIRET }}</li>
+                    <li>Agrément : {{ agence.numAgrement }}</li>
+                    <li>Interlocuteur : {{ agence.nomInterloc }} {{ agence.prenomInterloc }} : {{ agence.telInterloc }} | {{ agence.mailInterloc }}</li>
+                    <li>Assurance : {{ agence.nomAssurance }}</li>
+                    <li>N° police : {{ agence.numPoliceAssurance }}</li>
+                    <li>Fonds de garantie : {{ agence.nomFdGarantie }}, n°{{ agence.numFdGarantie }} pour un montant maximum de {{ agence.montantFdGarantie }}</li>
+                    <li>N° de déclaration d'activité de formation : {{ agence.numDeclarActivite }}</li>
+                </ul>
+            </div>
+
+            <h4 class="sousTitreContrat">EST CONCLU LE PRÉSENT CONTRAT</h4>
+
+            <div>
+                <h4 class="titrePartie">LA FORMATION</h4>
+
+                <p class="sousTitreContrat">I. INTITULÉ</p>
+                <p class="paragraphe">Formation au permis de conduire catégorie "B".</p>
+                <p>Certification éligible au CPF : code 206.</p>
+
+                <p class="sousTitreContrat">II. OBJET</p>
+                <p>En exécution du présent contrat, l’organisme de Formation s’engage à organiser l’action de formation intitulée « Formation au Permis de Conduire catégorie B ».</p>
+
+                <p class="sousTitreContrat">III. NATURE ET FINALITÉ DE L'ACTION DE FORMATION</p>
+                <p>Le cas échéant, l’action de formation entre dans la 1ère catégorie prévue à l’article L6313-1 de la sixième partie du Code du travail, à savoir les actions de formation.</p>
+                <p>Elle a alors pour objet : la formation au Permis de catégorie B afin notamment de :</p>
+                <ul>
+                    <li>Permettre une évolution professionnelle au sein de l’entreprise actuelle ou en dehors de celle-ci ;</li>
+                    <li>Développer une compétence professionnelle (en lien ou non avec le poste actuel) ;</li>
+                    <li>Élargir la zone géographique de recherche d’emploi ;</li>
+                    <li>Améliorer les conditions d’accès à l’emploi ;</li>
+                    <li>Favoriser la mobilité professionnelle.</li>
+                </ul>
+                <p>Sa durée est fixée à 1 an et pourra être renouvelée.</p>
+
+                <p class="sousTitreContrat">IV. NIVEAU DE CONNAISSANCES PRÉALABLES NÉCESSAIRES</p>
+                <p>Le stagiaire est informé qu’aucun prérequis n’est nécessaire.</p>
+
+                <p class="sousTitreContrat">V. DÉMARCHES ADMINISTRATIVES</p>
+                <p>
+                    L’élève mandate l’établissement pour accomplir en son nom et place toutes les démarches et formalités nécessaires auprès de l’administration,
+                    en vue de l’enregistrement de son dossier d’inscription. Il atteste sur l'honneur lors de la demande de permis de conduire qu'il n'est sous le coup
+                    d'aucune restriction du droit de conduire ou d'aucune interdiction de se présenter à nouveau. L’élève est avisé par l’établissement de la liste des
+                    documents à fournir pour constituer un dossier d’inscription. L'établissement s’engage à déposer le dossier complet dans les meilleurs délais.
+                </p>
+                <p>Le dossier de l’élève appartient à l’élève et pourra lui être restitué à sa demande dès lors que l’élève sera en règle financière avec l’établissement.</p>
+
+                <p class="sousTitreContrat">VI. ORGANISATION DE L'ACTION DE FORMATION</p>
+                <ul>
+                    <li>L’action de formation est organisée pour un effectif de 1 stagiaire.</li>
+                    <li>Les conditions générales dans lesquelles la formation est dispensée, notamment les moyens pédagogiques et techniques, sont les suivantes :</li>
+                    <ul>
+                        <li>
+                            Moyens pédagogiques : salle de cours avec vidéo-projection et/ou tablettes, livre de code, test de code sur internet, livrets
+                            d’apprentissage et de vérification, véhicules.
+                        </li>
+                        <li>Contrôle des connaissances : examens blancs et bilans réalisés par le formateur.</li>
+                        <li>
+                            Déroulement de la formation :
+                            <ul>
+                                <li>Code : cours et tests</li>
+                                <li>Conduite : 1 élève par véhicule</li>
+                            </ul>
+                        </li>
+                        <li>Les diplômes, titres et références de(s) personne(s) chargée(s) de la formation sont : Diplôme du BEPECASER, titre professionnel d’enseignant de la conduite.</li>
+                    </ul>
+                </ul>
+
+                <p class="sousTitreContrat">VII. ÉVALUATION DU NIVEAU DU CANDIDAT</p>
+                <p>L'établissement évalue le niveau du candidat en code et en conduite.</p>
+                <p>
+                    Concernant la formation théorique (code et tests), le moniteur évalue le niveau de l'élève et propose un forfait code incluant un prépacode valable 6 mois.
+                    Le forfait est considéré comme entièrement dû dès lors qu'il a débuté, même si l'élève n'assiste pas aux cours et tests.
+                </p>
+                <p>
+                    Concernant la formation pratique, un moniteur évalue le niveau du candidat. Le volume prévisionnel d’heure de conduite est défini par l’évaluation de départ.
+                    Ce volume de formation prévu est susceptible d'être révisé par la suite, d'un commun accord entre les parties et notamment dans le cas où le niveau du candidat
+                    serait insuffisant par rapport à l'examen de conduite.
+                </p>
+
+                <p class="sousTitreContrat">VIII. PROGRAMME ET DÉROULEMENT DE LA FORMATION</p>
+                <p>Le programme détaillé de l’action de formation figure en annexe du présent contrat.</p>
+                <p>
+                    Le calendrier prévisionnel des séances de formation est établi par l'établissement en concertation avec le candidat. Une heure de conduite en circulation se
+                    décompose généralement de la façon suivante :
+                </p>
+                <ul>
+                    <li>5 minutes : définition des objectifs en se référant au livret d'apprentissage.</li>
+                    <li>45 à 50 minutes : conduite effective pour travailler les objectifs définis et évaluer les apprentissages.</li>
+                    <li>5 à 10 minutes : bilan et commentaires pédagogiques incluant la validation des objectifs et les annotations sur le livret d'apprentissage.</li>
+                </ul>
+
+                <p class="sousTitreContrat">IX. RESPECT DU CALENDRIER DE FORMATION</p>
+                <p>
+                    Le candidat est tenu de respecter le calendrier prévisionnel de formation. Toute leçon ou cours non décommandé par l’élève au moins 48 heures ouvrées à
+                    l’avance sera dû et facturé, sans possibilité de report ou de remboursement, hormis pour le cas prévu ci-après.
+                </p>
+                <p>
+                    Toute annulation dans un délai inférieur à 48 heures dûment justifiée par un certificat médical pourra donner lieu à remboursement à condition que
+                    l’annulation ait lieu au moins 24 heures ouvrées avant le cours.
+                </p>
+                <p>
+                    Cette même règle s’applique dans le cas d’une formation globale par forfait ou stage. L’établissement d’enseignement se réserve la possibilité
+                    d’annuler des cours ou leçons pour motif légitime dûment justifié, par exemple dans tous les cas où la sécurité ne pourrait être assurée.
+                </p>
+                <p>
+                    Si un candidat décide de ne pas se présenter à l'examen de code ou de conduite, il devra en avertir le centre de formation au minimum 5 jours
+                    ouvrés à l'avance sous peine de perdre les frais afférents à cette prestation sauf motif légitime.
+                </p>
+                <p class="sousTitreContrat">Concernant l'examen théorique</p>
+                <p>
+                    En cas d'ajournement, l'élève sera représenté après avoir suivi une formation complémentaire destinée à corriger les causes de son ajournement
+                    et en fonction de la disponibilité de places d'examens liée à l'ordre de cette nouvelle présentation.
+                </p>
+                <p class="sousTitreContrat">Concernant l'examen de conduite</p>
+                <p>
+                    Pour être présenté à l'examen de conduite, le candidat doit satisfaire à une évaluation du moniteur (examen blanc), pour déterminer son niveau.
+                    Si l'élève a atteint le niveau requis, il sera présenté à l'examen. L’élève pourra être accompagné à l’examen.
+                </p>
+                <p>Dans le cas où le formateur juge le niveau de l'élève insuffisant, celui-ci sera invité à continuer sa formation en programmant des leçons de conduite supplémentaires.</p>
+                <p>
+                    En cas de désaccord de l'élève, une deuxième évaluation sera réalisée. Si malgré tout, l'élève persiste dans son refus de compléter sa formation,
+                    l'élève sera présenté à l'examen dans la limite des places disponibles, mais l'établissement se réserve le droit de ne pas reprendre son dossier en cas d'échec.
+                </p>
+
+                <p class="sousTitreContrat">X. OBLIGATIONS DES PARTIES</p>
+                <ul>
+                    <li>
+                        L'établissement : L'établissement s'engage à dispenser la formation et à présenter le candidat aux épreuves en fournissant les moyens nécessaires,
+                        sous réserve que le candidat ait atteint le niveau requis et qu’il soit à jour en termes de règlements
+                    </li>
+                    <li>Le candidat : Le candidat doit respecter les recommandations pédagogiques des formateurs, le calendrier de formation et payer les prestations fournies.</li>
+                </ul>
+                <p>
+                    En cas de non-respect, l'établissement se réserve la possibilité de surseoir à sa formation et/ou aux présentations aux épreuves du permis de conduire et
+                    ce sans remboursement des sommes versées.
+                </p>
+
+                <p class="sousTitreContrat">XI. RÉGLEMENT DES SOMMES DUES</p>
+                <p>
+                    Le candidat est tenu de régler les sommes dues, conformément au mode de règlement choisi dans le présent contrat. En cas de défaut de règlement,
+                    l'établissement informera le candidat qu'une résiliation du contrat à son initiative aura lieu si celui-ci ne régularise pas sa situation dans les quinze
+                    jours suivants l'avertissement de l'établissement.
+                </p>
+                <p>Aucune présentation au code ou à la conduite ne pourra être demandée si le compte de l'élève n'est pas soldé.</p>
+
+                <p class="sousTitreContrat">XII. MOYENS PERMETTANTS DE SUIVRE L’EXÉCUTION DE L’ACTION</p>
+                <p>Le suivi sera assuré :</p>
+                <ul>
+                    <li>Pour la partie théorique : par la supervision des résultats à l’aide de l’application Prépacode</li>
+                    <li>Pour la partie pratique : par la feuille récapitulative des heures de conduite</li>
+                </ul>
+
+                <p class="sousTitreContrat">XIII. MOYENS PERMETTANT D’APPRÉCIER LES RÉSULTATS DE L’ACTION</p>
+                <p>L’appréciation des résultats sera évaluée par l’intermédiaire des moyens suivants :</p>
+                <ul>
+                    <li>Pour la partie théorique : examens blancs et examen du code</li>
+                    <li>Pour la partie pratique : bilans réguliers et examens blancs</li>
+                </ul>
+
+                <p class="sousTitreContrat">XIV. SANCTION DE LA FORMATION</p>
+                <p>Le cas échant, en application de l’article L. 6353-1 du Code du travail, l’action de formation sera sanctionnée par la remise d’une attestation de fin de formation.</p>
+
+                <p class="sousTitreContrat">XV. DISPOSITIONS PRATIQUES</p>
+                <p>Lieu de formation : {{ agence.nomAssurance }} {{ agence.adresseAgence }}</p>
+                <p>Période de formation : {{ dateJour }} au {{ dateUnAn }}</p>
+
+                {% if eleve.statutSocial == "Salarié.e" or eleve.statutSocial == "Sans emploi" %}
+                    <p>Les prix indiqués dans le présent contrat s'entendent net de TVA. </p>
+                {% else %}
+                    <p>Les prix indiqués dans le présent contrat s'entendent TTC. </p>
+                {% endif %}
+                <p>Formule choisie : {{ forfait }}</p>
+                <p>Prix et prestations incluses dans la formule choisie : cf. annexe au présent contrat</p>
+                <p>Prestations hors-forfait : cf. annexe au présent contrat</p>
+                <p class="sousTitreContrat">Échéancier :</p>
+                <p>Mode de paiement : CB, Chèques, Espèces, Virement, Mixte</p>
+                <p>Échéances : Les prestations doivent être réglées préalablement à leur réalisation.</p>
+
+                <p class="sousTitreContrat">XVI. ACTION DE FORMATION</p>
+                <p>En contrepartie des sommes reçues ou à percevoir, l'organisme de formation s'engage à réaliser l'action de formation prévue dans le cadre du présent contrat.</p>
+
+                <p class="sousTitreContrat">XVII. INTERRUPTION DE LA FORMATION</p>
+                <p>
+                    En cas de cessation anticipée de la formation du fait de l’organisme de formation ou du fait de l’élève pour un autre motif que la force majeure dûment reconnue,
+                    le présent contrat est résilié selon les modalités financières suivantes : paiement de la formation au code sur la base du prix du forfait code applicable au
+                    sein de l’organisme de formation ; paiement des heures réservées (incluant celles non décommandées au moins 48h à l’avance) sur la base du prix de l’heure à
+                    l’unité applicable au sein de l’organisme de formation. Une attestation de formation sera remise par l’organisme de formation.
+                </p>
+
+                <p class="sousTitreContrat">XVIII. NON-RESPECT DU RÈGLEMENT INTÉRIEUR</p>
+                <p>
+                    En cas en cas de non-respect du règlement intérieur par le stagiaire, l’organisme de formation en informe les différentes parties ainsi que le stagiaire
+                    par lettre recommandée.
+                    Si aucune mesure corrective n’est apportée, l’organisme de formation est en droit d’interrompre la formation et de mettre un terme à la présente convention.
+                    Pour cela il en informe par lettre recommandé 15 jours à l’avance, les différentes parties, ainsi que le stagiaire. Dans ce cas les prestations fournies,
+                    entamées ou commandées demeurent dues.
+                </p>
+
+                <p class="sousTitreContrat">XIX. CAS DE DIFFÉREND</p>
+                <p>En cas de litige à raison de la présente convention, le tribunal de grande instance de Lyon sera seul compétent.</p>
+            </div>
+
+            <div>
+                <h4 class="sousTitreContrat titrePartie">ÉVALUATION PRÉALABLE</h4>
+                <p>Date de l'évaluation : {{ evalPre.dateEvaluation|date("d/m/Y") }}</p>
+                <p>Nombre prévisionnel d'heures de formation : {{ evalPre.nbHeureTheorique }}H théoriques et {{ evalPre.nbHeurePratique }}H pratiques</p>
+                <p>A {{ agence.villeAgence }}</p>
+                <p>Le {{ dateJour }}</p>
+
+                <div class="signatures">
+                    <div style="height: 0px; text-align: left;">
+                        Signature du candidat
+                    </div>
+                    <div style="height: 0px; text-align: center;">
+                        <p class="paragraphe">Signature du représentant légal</p>
+                        <p>(si candidat mineur)</p>
+                    </div>
+                    <div style="height: 0px; text-align: right;">
+                        Pour l'établissement
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="sousTitreContrat titrePartie">ANNEXE 1 - PRESTATIONS INCLUSES</h4>
+                <h5 class="formuleContrat">FORMULE CHOISIE :</h5>
+                <p>Nom : {{ forfait }}</p>
+                <p>Prix : {{ forfait.prix }} €</p>
+                <p>
+                    Prestations incluses :
+                <ul>
+                    {% for presta in prestations  %}
+                        <li>{{ presta.libelleContenu }}</li>
+                    {% endfor %}
+                </ul>
+                </p>
+
+                <div class="signatures">
+                    <div style="height: 0px; text-align: left;">
+                        Signature du candidat
+                    </div>
+                    <div style="height: 0px; text-align: center;">
+                        <p class="paragraphe">Signature du représentant légal</p>
+                        <p>(si candidat mineur)</p>
+                    </div>
+                    <div style="height: 0px; text-align: right;">
+                        Pour l'établissement
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="sousTitreContrat titrePartie">ANNEXE 2 - PRESTATIONS HORS FORFAIT</h4>
+                <h5 class="formuleContrat">PRESTATIONS HORS-FORFAIT :</h5>
+                <ul>
+                    {% for presta in prestationsHorsForfait  %}
+                        <li>{{ presta.nom }} : {{ presta.prix }} €</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="signatures">
+                    <div style="height: 0px; text-align: left;">
+                        Signature du candidat
+                    </div>
+                    <div style="height: 0px; text-align: center;">
+                        <p class="paragraphe">Signature du représentant légal</p>
+                        <p>(si candidat mineur)</p>
+                    </div>
+                    <div style="height: 0px; text-align: right;">
+                        Pour l'établissement
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                {% if eleve.statutSocial == "Salarié.e" or eleve.statutSocial == "Sans emploi" %}
+                    <h4 class="sousTitreContrat titrePartie">ANNEXE 3 - QUESTIONNAIRE</h4>
+                    <p class="sousTitreContrat">Merci de compléter le questionnaire ci-dessous en fonction du cas dont vous relevez :</p>
+                    <p class="sousTitreContrat">L’obtention du permis de conduire de catégorie B va contribuer à la réalisation de votre projet professionnel.</p>
+                    <p>Objectif professionnel : Sécuriser votre poste de travail et votre parcours professionnel</p>
+                    <p>Utilité de l’action de formation (permis de conduire de catégorie B) pour votre projet – issues 	des articles L 6311-1, L 	6313-3 et D 6323-8-3 du code du travail :</p>
+
+                    <form>
+                        <div>
+                            <input type="checkbox" id="developperCompetence" name="developperCompetence" checked>
+                            <label for="developperCompetence">Développer une compétence professionnelle (en lien ou non avec votre poste actuel)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="favoriserMobilite" name="favoriserMobilite" checked>
+                            <label for="favoriserMobilite">Favoriser votre mobilité professionnelle</label>
+                        </div>
+                        {% if eleve.statutSocial == "Salarié.e" %}
+                            <div>
+                                <input type="checkbox" id="evolutionPro" name="evolutionPro" checked>
+                                <label for="evolutionPro">Permettre une évolution professionnelle au sein de votre entreprise actuelle ou en dehors de celle-ci</label>
+                            </div>
+                        {% elseif eleve.statutSocial == "Sans emploi" %}
+                            <div>
+                                <input type="checkbox" id="ameliorerAcces" name="ameliorerAcces" checked>
+                                <label for="ameliorerAcces">Améliorer vos conditions d’accès à l’emploi</label>
+                            </div>
+                        {% endif %}
+
+                        {% set evolutionEmploi, qualificationElevee, nouveauContrat, horaireDecale, travailEloigne = "", "", "", "", "" %}
+                        {% for nom, checked in questionnaire %}
+                            {% if nom == "evolutionEmploi" %}
+                                {% if checked == '1' %}
+                                    {% set evolutionEmploi = "checked" %}
+                                {% endif %}
+                            {% endif %}
+                            {% if nom == "qualificationElevee" %}
+                                {% if checked == '1' %}
+                                    {% set qualificationElevee = "checked" %}
+                                {% endif %}
+                            {% endif %}
+                            {% if nom == "nouveauContrat" %}
+                                {% if checked == '1' %}
+                                    {% set nouveauContrat = "checked" %}
+                                {% endif %}
+                            {% endif %}
+                            {% if nom == "horaireDecale" %}
+                                {% if checked == '1' %}
+                                    {% set horaireDecale = "checked" %}
+                                {% endif %}
+                            {% endif %}
+                            {% if nom == "travailEloigne" %}
+                                {% if checked == '1' %}
+                                    {% set travailEloigne = "checked" %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <div>
+                            <input type="checkbox" id="evolutionEmploi" name="evolutionEmploi" {{ evolutionEmploi }}>
+                            <label for="evolutionEmploi">Permettre de vous adapter à l’évolution de votre emploi</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="qualificationElevee" name="qualificationElevee" {{ qualificationElevee }}>
+                            <label for="qualificationElevee">Acquérir une qualification plus élevée</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="nouveauContrat" name="nouveauContrat" {{ nouveauContrat }}>
+                            <label for="nouveauContrat">En application d’un nouveau contrat de travail ou d’une clause de mobilité géographique votre lieu de travail est maintenant significativement éloigné de votre domicile</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="horaireDecale" name="horaireDecale" {{ horaireDecale }}>
+                            <label for="horaireDecale">Vous serez bientôt amenés à travailler en horaire décalé (notamment la nuit)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="travailEloigne" name="travailEloigne" {{ travailEloigne }}>
+                            <label for="travailEloigne">Vous êtes amené(e) à exercer des contrats de travail successifs éloignés de votre domicile</label>
+                        </div>
+                    </form>
+
+                {% endif %}
+                <p>Je soussigné(e) {{ eleve.prenom }} {{ eleve.nom }} certifie sur l'honneur : </p>
+                <ul>
+                    <li>L’exactitude des informations mentionnées dans le présent document.</li>
+                    <li>Que la formation au permis de conduire contribuera à la réalisation de mon projet professionnel et à favoriser la sécurisation de mon parcours professionnel.</li>
+                    <li>
+                        Ne pas faire l’objet d'une suspension en cours de mon permis de conduire ou d'une interdiction de solliciter un permis de conduire, ni d’une récupération
+                        de vos points de permis de conduire.
+                    </li>
+                </ul>
+                <div class="signatures">
+                    <div style="height: 0px; text-align: left;">
+                        À {{ agence.villeAgence }}, Le {{ dateJour }}
+                    </div>
+                    <div style="height: 0px; text-align: center;">
+                        Signature du candidat
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

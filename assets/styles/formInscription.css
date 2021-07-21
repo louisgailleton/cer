@@ -1,0 +1,37 @@
+#validateForm {
+    background-color: #F87217;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid #F87217;
+    transition-property: all;
+    transition-duration: .5s;
+}
+
+#validateForm:hover {
+    background-color: transparent;
+    color: #F87217;
+}
+
+nav {
+    background-color: #F87217;
+}
+
+footer {
+    background-color: #0f2645;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.messageEtapePrecedente {
+    color: red;
+}

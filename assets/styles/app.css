@@ -1,0 +1,309 @@
+body {
+    background-color: white;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    height: 100%;
+}
+
+nav {
+    background-color: #F87217;
+    margin-bottom: 0;
+}
+
+#avancement {
+    height: 5vh !important;
+    background-color: #F87217;
+
+}
+
+.container, .container-fluid {
+    min-height: 100vh;
+}
+
+footer {
+    background-color: #0f2645;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.menuValide {
+    color: #0f2645 !important;
+    font-weight: bold;
+}
+
+.liMenuValide {
+    border-bottom: 5px solid #0f2645;
+    stroke-linecap: round;
+}
+
+.navNumber {
+    font-weight: bold;
+    color: #0f2645 !important;
+}
+
+.fa-shopping-cart {
+    font-size: 1.5rem;
+}
+
+.fa-user-alt {
+    font-size: 1.5rem;
+}
+
+.fa-home {
+    font-size: 1.5rem;
+}
+
+/********* PARTIE PROGRESS-BAR *********/
+
+.pourcentageBar0 {
+    width: 0;
+    background-color: #0f2645;
+    border-radius: 20px;
+}
+
+.pourcentageBar1 {
+    width: 20%;
+    background-color: #0f2645;
+    border-radius: 20px;
+}
+
+.pourcentageBar2 {
+    width: 40%;
+    background-color: #0f2645;
+    border-radius: 20px;
+}
+
+.pourcentageBar3 {
+    width: 60%;
+    background-color: #0f2645;
+    border-radius: 20px;
+}
+
+.pourcentageBar4 {
+    width: 80%;
+    background-color: #0f2645;
+    border-radius: 20px;
+}
+
+.pourcentageBar5 {
+    width: 100%;
+    color: #0f2645;
+    background-color: #0f2645;
+    border-radius: 20px;
+}
+
+.pourcentageBarComplete {
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+}
+
+
+/********* MON CODE *********/
+#inputLycee {
+    display: none;
+}
+
+#inputLyceeAutre {
+    display: none;
+}
+
+#inputMetier {
+    display: none;
+}
+
+#inputNomSociete {
+    display: none;
+}
+
+#inputLycee2 {
+    display: none;
+}
+
+#inputLyceeAutre2 {
+    display: none;
+}
+
+#inputMetier2 {
+    display: none;
+}
+
+#inputNomSociete2 {
+    display: none;
+}
+
+/********* FORFAIT *********/
+#tableauForfait {
+  text-align: center;
+}
+
+/********* SECRETAIRE *********/
+
+.form-control::placeholder {
+  font-size: 0.95rem;
+  color: #aaa;
+  font-style: italic;
+}
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-control-underlined {
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-radius: 0;
+  padding-left: 0;
+}
+
+.titre {
+  text-align: center;
+}
+
+#calendar,
+#calendarSemaineType {
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+th > div > span {
+  font-size: 9px;
+}
+
+.fc-event-title {
+  font-size: 9px;
+}
+
+.modal {
+  overflow-y:auto;
+}
+.fc-border-separate td {
+  border-width: 1px 0 0 1px;
+  border-color: red;
+}
+
+.btnSecretaire {
+  margin-top: 1%;
+}
+#btnAnnulIndispo,
+#btnConfirmIndispo,
+#btnAnnulSemaine,
+#btnConfirmSemaine,
+#message {
+  display: none;
+}
+
+#duree {
+  color: #007aff;
+  -webkit-mask-image: linear-gradient(
+    -75deg,
+    rgba(0, 0, 0, 0.6) 30%,
+    #000 50%,
+    rgba(0, 0, 0, 0.6) 70%
+  );
+  -webkit-mask-size: 200%;
+  animation: shine 2s infinite;
+}
+#celluleDuree {
+  cursor: pointer;
+}
+
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+  }
+
+  to {
+    -webkit-mask-position: -50%;
+  }
+}
+
+.hide{
+  display: none;
+}
+
+.popover {
+  overflow: hidden;
+}
+
+#dispoTable,
+#examTable,
+#slTable {
+  margin-top: 4%;
+}
+
+#divLieu{
+  margin-bottom: 2%;
+  margin-left: 2%;
+}
+
+tr,
+.loader {
+  text-align: center;
+}
+
+#loaderLieu {
+  margin-top: 41%;
+
+}
+
+#result {
+  position: absolute;
+  width: 95%;
+  max-width: 870px;
+  cursor: pointer;
+  overflow-y: auto;
+  max-height: 400px;
+  box-sizing: border-box;
+  z-index: 1001;
+}
+.link-class:hover {
+  background-color: #f1f1f1;
+}
+
+#button-addon1:hover {
+  cursor: default;
+ }
+
+ @media (min-width: 320px) {
+    h5 {font-size:.75rem;} /*1rem = 16px*/
+  }
+
+@media (min-width: 768px) {
+    h5 {font-size:.8rem;} /*1rem = 16px*/
+    }
+
+@media (min-width: 992px) {
+    h5 {font-size:1rem;} /*1rem = 16px*/
+    }
+
+.notifCommentaire {
+    animation: blinker 1s linear infinite;
+    color: red;
+}
+
+.imgSiteConstruction {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.msgSiteConstruction {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #0f2645;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+}

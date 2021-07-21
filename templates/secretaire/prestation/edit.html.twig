@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier prestation{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier prestation</h1>
+
+        {{ include('secretaire/prestation/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+        <a href="{{ path('secretaire.prestation') }}" class="btn btn-warning">Retour</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,458 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Planning Secrétaire
+{% endblock %}
+
+{% block stylesheets %}
+	<link href='{{ asset('lib/main.css') }}' rel='stylesheet'/>
+	<script src='{{ asset('lib/main.js') }}'></script>
+	{{ encore_entry_link_tags('app') }}
+	{{ encore_entry_link_tags('secretaireCalendarCss') }}
+{% endblock %}
+
+{% block body %}
+	<main>
+		<div class="container-fluid">
+			<div class="form-group">
+				<div class="row align-items-center">
+					<div class="col-lg-1 col-md-1 col-sm-6 col-6 pr-0">
+						<input id="btnAuto" type="checkbox" {% if auto==true %} checked {% endif %} data-toggle="toggle" data-off="Manuel" data-on="Auto">
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-6 col-6">
+						<select name="inlineRadioOptions" id="selecteur" class="p-2">
+							<option value="option1" id="radioOff">Off</option>
+							<option value="option2" id="radioDispo">Disponibilités</option>
+							<option value="option3" id="radioResa">Réservation</option>
+							<option value="option3" id="radioExam">Examen</option>
+						</select>
+					</div>
+
+					<div class="offset-lg-5 offset-md-5 col-lg-4 col-md-4 col-sm-12 col-12  pb-4-sm pb-4-xs pb-0-md pb-0-lg">
+						<div class=" rounded-pill" id="searchBar">
+							<div class="input-group align-items-center">
+								<input id="search" type="text" autocomplete="off" placeholder="Qui cherchez-vous ?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+								<div class="input-group-append">
+									<div id="button-addon1" type="submit" class="btn text-primary">
+										<i id="loaderEleves" class="hide fas fa-circle-notch fa-spin"></i>
+										<i class="fa fa-search"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<ul class="list-group" id="result"></ul>
+						<!-- /input-group -->
+					</div>
+				</div>
+			</div>
+
+			<div class="row pl-3 pb-3">
+				<span id="forfaitEleve" class="hide infoCache align-items-center"></span>
+			</div>
+			<div class="row">
+				<div class="col-lg-2 col-md-2 col-sm-4 col-4 hide infoCache">
+					<table class="table borderless">
+						<thead class="thead">
+							<tr>
+								<th scope="col">A payer</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">XX€</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="hide infoCache" class="col-4">
+					<table class="table borderless">
+						<thead class="thead">
+							<tr>
+								<th scope="col">Compteur</th>
+								<th scope="col">Heures à poser</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th id="compteurEleve" scope="row"></th>
+								<th id='haposerEleve' scope="row"></th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-2">
+					<span class="infoCache" id="examenEleve"></span>
+				</div>
+				<div class="col-1 hide infoCache align-items-center">
+					<span>FICHE (p2)</span>
+				</div>
+
+			</div>
+
+			<div class="row">
+				{% set i = 0 %}
+
+				{% set couleur = '' %}
+
+				{% for moniteur in moniteurs %}
+					{% set i = i + 1 %}
+					<div class="col-1 ml-2 mr-2 pl-2 text-left">
+						<div class="form-check form-check-inline">
+
+							<label class="btn btn-outline-dark" style="color: {{moniteur.color}}" for="moniteur{{moniteur.id}}" autocomplete="off">
+								<input class="form-check-input moniteur" type="checkbox" name="moniteurCheckbox" id="moniteur{{moniteur.id}}" value="{{moniteur.id}}">{{moniteur.username}}
+							</label>
+						</div>
+					</div>
+				{% endfor %}
+
+				<div class="col-2 ml-2 mr-2">
+					<div class="form-check form-check-inline">
+						<input class="form-check-input " type="radio" checked name="moniteurRadio" id="tous">
+						<label class="form-check-label" for="tous">Tous</label>
+					</div>
+				</div>
+			</div>
+			<div class="row btnSecretaire">
+				<div class='col-12'>
+					<button type="button" class="btn btn-warning" id='message'></button>
+				</div>
+
+			</div>
+			<div class='row'>
+				<div class='col-12' id='calendar'></div>
+			</div>
+
+
+			<div id="CancelModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4>Supprimer ce cours</h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">fermer</span>
+							</button>
+
+						</div>
+						<div class="modal-body ">
+							<div class="container">
+
+
+								<div class="row">
+
+
+									<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="annulation" id='annuleEleve'>
+										<label class="form-check-label" for="annuleEleve">A l'initiative de l'élève</label>
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="annulation" id='annuleAgence'>
+										<label class="form-check-label" for="annuleAgence">A l'initiative de l'agence</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id='cancelButton' class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Annuler</button>
+							<button disabled id="submitAnnulation" type="button" class="btn btn-danger">
+								Supprimer
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="ModalLieuResa" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 id="titreModalLieu"></h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">fermer</span>
+							</button>
+
+						</div>
+						<div class="modal-body ">
+							<div class="container">
+								<label for="lieu">Choisissez un Lieu</label>
+								<select class="form-control" id='selectEleveLieu'></select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id='cancelResaEleve' class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Annuler</button>
+							<button id="submitLieuEleve" type="button" class="btn btn-primary" data-trigger="focus" data-toggle="popoverLieuEleve" title="Compteur invalide" data-content="Cet élève n'a plus assez d'heure(s) pour la durée du rendez-vous entrée.">
+								Ajouter
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="resaModal" class="modal fade">
+
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 id="titreResa">Réservation</h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">fermer</span>
+							</button>
+
+						</div>
+						<ul class="nav nav-tabs justify-content-center" id="tabContent">
+							<li class="active nav-item">
+								<a class="nav-link" href="#dispo" data-toggle="tab">Dispo</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#exam" data-toggle="tab">Exam</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#S-L" data-toggle="tab">S-L</a>
+							</li>
+						</ul>
+
+						<div class="tab-content">
+							<div class="tab-pane active" id="dispo">
+
+								<table id='dispoTable' class="table">
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col">Nom</th>
+											<th scope="col">Prénom</th>
+											<th scope="col">Tèl</th>
+											<th id='celluleDuree' scope="col" data-container="body" data-trigger="focus" data-toggle="formDuree" data-placement="top" data-trigger="focus" title="Filtrer par durée" data-content='
+																																							                                            <div class="form-group ">
+																																							                                                <div class="col-12">
+																																							                                                    <input class="form-control" type="time" value="00:00" id="filtreHeure">
+																																							                                                </div>
+																																							                                                <div class="col-12">
+																																								                                                <button id="resetButton" class="btn btn-secondary mt-2" >Réinitialiser</button>
+																																										                                    </div>
+																																							                                            </div>'>
+												<span id='duree'>Durée</span>
+											</th>
+											<th scope="col">HàPoser</th>
+											<th scope="col">Cpteur</th>
+											<th scope="col">Sélection</th>
+
+										</tr>
+									</thead>
+									<tbody id='dispoContent'></tbody>
+								</table>
+								<div id="loaderDispo" class="hide loader">
+									<img src="{{ asset('img/ajax-loader.gif') }}" alt="Chargement">
+								</div>
+							</div>
+							<div class="tab-pane" id="exam">
+								<table id='examTable' class="table">
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col">Nom</th>
+											<th scope="col">Prénom</th>
+											<th scope="col">Tèl</th>
+											<th scope="col">Date</th>
+											<th scope="col">HàPoser</th>
+											<th scope="col">Cpteur</th>
+											<th scope="col">Sélection</th>
+
+										</tr>
+									</thead>
+									<tbody id='examContent'></tbody>
+								</table>
+								<div id="loaderExam" class="hide loader">
+									<img src="{{ asset('img/ajax-loader.gif') }}" alt="Chargement">
+								</div>
+							</div>
+
+							<div class="tab-pane" id="S-L">
+								<table id="slTable" class="table">
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col">Nom</th>
+											<th scope="col">Prénom</th>
+											<th scope="col">Tèl</th>
+											<th scope="col">HàPoser</th>
+											<th scope="col">Cpteur</th>
+											<th scope="col">Sélection</th>
+
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+								<div id="loaderSl" class="hide loader">
+									<img src="{{ asset('img/ajax-loader.gif') }}" alt="Chargement">
+								</div>
+
+							</div>
+							<div class="row">
+
+
+								<div id='divLieu' class='col-4'>
+
+									<label for="lieu">Choisissez un Lieu</label>
+									<select class="form-control" id='lieu'></select>
+
+								</div>
+								<div class="col-2">
+									<i id="loaderLieu" class="fas fa-circle-notch fa-spin"></i>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id='cancelResa' class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Annuler</button>
+							<button disabled id="submitResa" type="button" class="btn btn-primary" data-container="body" data-placement="top" data-trigger="focus" title="Compteur invalide" data-content="Cet élève n'a plus assez d'heure pour prendre la totalité du rendez-vous soumis.">
+								Ajouter
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div id="examModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 id="titreExamlModal">Création Examen</h4>
+							<button type="button" class="close closeExamen" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">fermer</span>
+							</button>
+
+						</div>
+						<div class="modal-body ">
+							<div class="container">
+								<div class="row">
+									<div class='col-6'>
+										<div class="row">
+											<div class="form-group">
+
+												<input id="dateExam" type="date" name="examen" class="form-control mb-2">
+												<select id="lieuExam" name="examen" class="form-control mb-2"></select>
+												<input id="nbPlaceExam" name="examen" type="number" class="form-control mb-2" placeholder="Nombre de places">
+											</div>
+										</div>
+									</div>
+									<div class='col-6'>
+										<div class="row">
+											<div class="form-group">
+
+												<input name="examen" id="heureExam" type="time" class="form-control mb-2">
+
+												<input id="numeroExam" name="examen" type="text" class="form-control mb-2" placeholder="Numéro">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button class="btn btn-secondary closeExamen" data-dismiss="modal" aria-hidden="true">Annuler</button>
+							<button id="deleteExam" type="button" class="btn btn-danger">
+								Supprimer
+							</button>
+							<button disabled id="btnOkExam" type="button" class="btn btn-primary">
+								OK
+							</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="semaineTypeModal" class="modal fade">
+				<div class="modal-dialog modal-xl">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 id="semaineTypeTitle">Etablissez la semaine type</h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">fermer</span>
+							</button>
+
+						</div>
+						<div class="modal-body ">
+							<div class="container">
+								<div class='row'>
+									<div class='col-12' id='calendarSemaineType'></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Annuler</button>
+							<button id="submitSemaineType" type="button" class="btn btn-primary">
+								OK
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="cancelListeRdv" class="modal fade">
+				<div class="modal-dialog  modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 id="semaineTypeTitle">Conflits de rendez-vous</h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">fermer</span>
+							</button>
+
+						</div>
+						<div class="modal-body ">
+							<div class="container">
+								<table id="RdvToCancelTable" class="table">
+									<thead>
+										<tr>
+											<th scope="col">Date</th>
+											<th scope="col">Eleve</th>
+											<th scope="col">Téléphone</th>
+											<th scope="col">Action</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Retour</button>						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="replaceModal" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Remplacer l'élève absent</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p id="nomRemplacement"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+							<button id="submitReplace" type="button" class="btn btn-primary">Confirmer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	{% endblock %}
+	{% block javascripts %}
+		<div data-tout='{{ tout|raw }}'></div>
+		<div data-moniteurs='{{ moniteurs|json_encode|raw }}'></div>
+		<div data-total-indispo='{{ totalIndispo|json_encode|raw }}'></div>
+		{{ encore_entry_script_tags('secretaireCalendar') }}
+	{% endblock %}

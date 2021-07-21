@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification moniteur
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+{% block body %}
+	<h1 class='d-flex justify-content-center'>Modifier un moniteur</h1>
+	<div class="container">
+		{{form_start(form)}}
+		{{form_row(form.username)}}
+		{{form_row(form.password, { 'attr': {'data-container': 'body','data-toggle': 'mdp', 'data-placement':'left', 'data-trigger':'focus', 'data-content':'Les mots de passe ne correspondent pas.'  } })}}
+		<div class="form-group">
+			<label for="confirmMdp">Confirmer mot de passe</label>
+			<input type="password" class="form-control" id="confirmMdp" placeholder="Mot de passe" data-container="body" data-toggle="mdp" data-placement="left" data-trigger="focus" data-content="Les mots de passe ne correspondent pas.">
+		</div>
+		<button id='btnModifier' class='btn btn-success'>Modifier</button>
+		{{form_end(form)}}
+
+	</div>
+
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('crud') }}
+
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Moniteur' %}
+
+{% block body %} 
+    <div class="container-fluid mt-4">
+        <div class="row" id="ligneExamen">
+
+            <!-- PARTIE LISTE EXAMENS -->
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="table table-dark table-striped">
+                            <thead class="">
+                                <tr>
+                                    <th>20/10/20 | 8h30</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Louis Gailleton</td>
+                                </tr>
+                                <tr>
+                                    <td>Renaud</td>
+                                </tr>
+                                <tr>
+                                    <td>Jean-Michel Jarre</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                            <tr>
+                                <th>20/10/20 | 8h30</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Louis Gailleton</td>
+                            </tr>
+                            <tr>
+                                <td>Renaud</td>
+                            </tr>
+                            <tr>
+                                <td>Jean-Michel Jarre</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                            <tr>
+                                <th>20/10/20 | 8h30</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Louis Gailleton</td>
+                            </tr>
+                            <tr>
+                                <td>Renaud</td>
+                            </tr>
+                            <tr>
+                                <td>Jean-Michel Jarre</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARTIE DESTINATAIRE MONO -->
+            <div class="col-md-5">
+                <div class="row" style="border: 1px solid black; height: 100px;">
+                    <h3>Destinataire</h3>
+                </div>
+                <div class="row">
+                    <table class="table table-dark table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Rest.</th>
+                                <th colspan="4">Places demandées</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>M1</td>
+                                <td>M2</td>
+                                <td>M3</td>
+                                <td>M4</td>
+                                <td>M5</td>
+                            </tr>
+                            <tr>
+                                <td>VNW</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>3</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>SP</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="ligneListe">
+
+            <!-- PARTIE SHORT-LIST -->
+            <div class="col-md-8">
+                <h3 class="text-center">SHORT-LIST</h3>
+                <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <p>Places Restantes</p>
+                    <div>
+                        <table class="table table-bordered table-sm">
+                            <tr>
+                                <td>VNX</td>
+                                <td>SP</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>1</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-bordered col-md-6">
+                        <tr>
+                            <td>VNX</td>
+                            <td>SP</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-bordered col-md-6">
+                        <tr>
+                            <td>VNX</td>
+                            <td>SP</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PARTIE LISTE RESERVER -->
+            <div class="col-md-4">
+                <h3 class="text-center">RÉSERVÉ</h3>
+                <table class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>BX</th>
+                            <th>HàP</th>
+                            <th>HP</th>
+                            <th>DIFF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gailleton</td>
+                            <td>Louis</td>
+                            <td>B1</td>
+                            <td>5</td>
+                            <td>4</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Jarre</td>
+                            <td>Jean-Michel</td>
+                            <td>B3</td>
+                            <td>6</td>
+                            <td>6</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

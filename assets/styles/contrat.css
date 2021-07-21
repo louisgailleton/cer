@@ -1,0 +1,50 @@
+.titreContrat {
+    text-align: center;
+    border: 2px solid #0f2645;
+    border-radius: 30px;
+    font-weight: bold;
+    background-color: #0f2645;
+    color: white;
+}
+
+.sousTitreContrat {
+    font-weight: bold;
+    text-align: center;
+}
+
+.titrePartie {
+    margin-top: 40px;
+    text-align: center;
+    background-color: #F87217;
+    color: white;
+    border: 2px solid #F87217;
+    border-radius: 20px;
+}
+
+.listeInfos {
+    list-style-type: none;
+}
+
+.paragraphe {
+    margin-bottom: 0px;
+}
+
+.formuleContrat {
+    color: red;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.boutonSigner {
+    border-radius: 20px;
+    background-color: #F87217;
+    border: 2px #F87217 solid;
+    color: white;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+.boutonSigner:hover {
+    color: #F87217;
+    background-color: transparent;
+}

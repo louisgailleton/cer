@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portes Ouvertes{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('porteOuverte') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class='titrePorteOuverte'>Liste des journées d'informations</h1>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Heure début</th>
+                <th scope="col">Heure Fin</th>
+                <th scope="col">Lieu</th>
+                <th scope="col">Nb places</th>
+                <th scope="col">Voir les élèves</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for po in portesOuvertes %}
+                {% set nbPlaceDispo = po.nbPlace %}
+                {% for eleve in po.eleve %}
+                    {% set nbPlaceDispo = nbPlaceDispo - eleve.nbPersonnePorteOuverte() %}
+                {% endfor %}
+                <tr>
+                    <td>{{ po.date|date('d/m/Y') }}</td>
+                    <td>{{ po.heureDebut|date('H:i:s') }}</td>
+                    <td>{{ po.heureFin|date('H:i:s') }}</td>
+                    <td>{{ po.lieu.libelle }}</td>
+                    <td>{{ nbPlaceDispo }} / {{ po.nbPlace }}</td>
+                    <td><a href="{{ path('admin.voirPorteOuverte', {'id': po.id}) }}" class="btn btn-primary">Voir les élèves</a></td>
+                    <td><a href="{{ path('admin.modifierPorteOuverte.html.twig', {'id': po.id}) }}" class="btn btn-warning">Modifier</a></td>
+                    <td>
+                        <form method="post" action="{{ path('admin.supprimerPorteOuverte', {'id': po.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette journée ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ po.id) }}">
+                            <button class="btn btn-danger mt-1">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href='{{ path('admin.ajouterPorteOuverte') }}' class='btn btn-success'>Ajouter une journée</a>
+    </div>
+{% endblock %}

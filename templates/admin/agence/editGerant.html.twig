@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification gérant
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+{% block body %}
+	<h1 class='d-flex justify-content-center'>Modifier une agence</h1>
+	<div class="container">
+		{{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button id='btnModifier' class='btn btn-success'>Modifier</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('crud') }}
+{% endblock %}

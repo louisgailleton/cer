@@ -1,0 +1,2 @@
+'Bad credentials.': 'Les informations fournies sont incorrectes. 😢'
+'Authentication failed because "App\Security\LoginFormAuthenticator::checkCredentials()" did not return true.': 'Les informations fournies sont incorrectes. 😢'

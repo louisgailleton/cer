@@ -1,0 +1,341 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste élèves {% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('listeEleves') }}
+    {{ encore_entry_link_tags('app') }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        {# MENU DE LA LISTE DES ÉLÈVES #}
+        <div class="row">
+            <div class="col">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item active" aria-current="page"><button class="page-link" id="btnMenuEnAttente" disabled>EN ATTENTE</button></li>
+                    <li class="page-item"><button class="page-link" id="btnMenuATraiter">À TRAITER</button></li>
+                    <li class="page-item"><button class="page-link" id="btnMenuSaisiANTS">SAISI SUR ANTS</button></li>
+                    <li class="page-item"><button class="page-link" id="btnMenuEnregistre">ENREGISTRÉ</button></li>
+                </ul>
+
+            </div>
+        </div>
+        {# CORPS DE LA LISTE DES ÉLÈVES #}
+        <div class="row listeElevesSecretaire">
+            <div class="col-md-5">
+                <table class="table" id="tableauEnAttente">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Âge</th>
+                        <th scope="col">Lycée</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for eleve in eleves %}
+                        {% if eleve.etatDossier == "1" %}
+                            <tr class="ligneEleve enAttente" data-infoEleve="{{ eleve|json_encode() }}">
+                                <td>{{ eleve.nom }}</td>
+                                <td>{{ eleve.prenom }}</td>
+                                {% if eleve.dateNaiss is defined and eleve.dateNaiss is not null %}
+                                    <td>{{ eleve.dateNaiss|age }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                                {% if eleve.lycee is defined and eleve.lycee != "" %}
+                                    {% if eleve.lyceeAutre is defined and eleve.lyceeAutre != "" %}
+                                        <td>{{ eleve.lyceeAutre }}</td>
+                                    {% else %}
+                                        <td>{{ eleve.lycee }}</td>
+                                    {% endif %}
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <table class="table" id="tableauATraiter">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Âge</th>
+                        <th scope="col">Lycée</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for eleve in eleves %}
+                        {% if eleve.etatDossier == "2" %}
+                            {% set piecesJointes = "" %}
+                            {% for pj in eleve.piecesjointes() %}
+                                {% set piecesJointes = piecesJointes ~ pj|json_encode() %}
+                            {% endfor %}
+                            <tr class="ligneEleve aTraiter" data-infoEleve="{{ eleve|json_encode() }}" data-pj="{{ piecesJointes }}">
+                                <td>{{ eleve.nom }}</td>
+                                <td>{{ eleve.prenom }}</td>
+                                {% if eleve.dateNaiss is defined and eleve.dateNaiss is not null %}
+                                    <td>{{ eleve.dateNaiss|age }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                                {% if eleve.lycee is defined and eleve.lycee != "" %}
+                                    {% if eleve.lyceeAutre is defined and eleve.lyceeAutre != "" %}
+                                        <td>{{ eleve.lyceeAutre }}</td>
+                                    {% else %}
+                                        <td>{{ eleve.lycee }}</td>
+                                    {% endif %}
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <table class="table" id="tableauSaisiANTS">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Âge</th>
+                        <th scope="col">Lycée</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for eleve in eleves %}
+                        {% if eleve.etatDossier == "3" %}
+                            {% set piecesJointes = "" %}
+                            {% for pj in eleve.piecesjointes() %}
+                                {% set piecesJointes = piecesJointes ~ pj|json_encode() %}
+                            {% endfor %}
+                            <tr class="ligneEleve saisiANTS" data-infoEleve="{{ eleve|json_encode() }}" data-pj="{{ piecesJointes }}">
+                                <td>{{ eleve.nom }}</td>
+                                <td>{{ eleve.prenom }}</td>
+                                {% if eleve.dateNaiss is defined and eleve.dateNaiss is not null %}
+                                    <td>{{ eleve.dateNaiss|age }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                                {% if eleve.lycee is defined and eleve.lycee != "" %}
+                                    {% if eleve.lyceeAutre is defined and eleve.lyceeAutre != "" %}
+                                        <td>{{ eleve.lyceeAutre }}</td>
+                                    {% else %}
+                                        <td>{{ eleve.lycee }}</td>
+                                    {% endif %}
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <table class="table" id="tableauEnregistre">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Âge</th>
+                        <th scope="col">Lycée</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for eleve in eleves %}
+                        {% if eleve.etatDossier == "4" %}
+                            <tr class="ligneEleve enregistre" data-infoEleve="{{ eleve|json_encode() }}">
+                                <td>{{ eleve.nom }}</td>
+                                <td>{{ eleve.prenom }}</td>
+                                {% if eleve.dateNaiss is defined and eleve.dateNaiss is not null %}
+                                    <td>{{ eleve.dateNaiss|age }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                                {% if eleve.lycee is defined and eleve.lycee != "" %}
+                                    {% if eleve.lyceeAutre is defined and eleve.lyceeAutre != "" %}
+                                        <td>{{ eleve.lyceeAutre }}</td>
+                                    {% else %}
+                                        <td>{{ eleve.lycee }}</td>
+                                    {% endif %}
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+                {#<table class="table" id="listeEleves">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Âge</th>
+                            <th scope="col">Lycée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for eleve in eleves %}
+                #}{#On implémente une variable pour afficher les élèves selon l'état de leur dossier#}{#
+                {% if eleve.etatDossier == "1" %}
+                    {% set etatDossierEleve = "enAttente" %}
+                    {% set piecesJointes = "" %}
+                {% elseif eleve.etatDossier == "2" %}
+                    {% set etatDossierEleve = "aTraiter" %}
+                    {% set piecesJointes = "" %}
+                    {% for pj in eleve.piecesjointes() %}
+                        {% set piecesJointes = piecesJointes ~ pj|json_encode() %}
+                    {% endfor %}
+                {% elseif eleve.etatDossier == "3" %}
+                    {% set etatDossierEleve = "saisiANTS" %}
+                    {% set piecesJointes = "" %}
+                    {% for pj in eleve.piecesjointes() %}
+                        {% set piecesJointes = piecesJointes ~ pj|json_encode() %}
+                    {% endfor %}
+                {% elseif eleve.etatDossier == "4" %}
+                    {% set etatDossierEleve = "enregistre" %}
+                    {% set piecesJointes = "" %}
+                {% endif %}
+                <tr class="ligneEleve {{ etatDossierEleve }}" data-infoEleve="{{ eleve|json_encode() }}" data-pj="{{ piecesJointes }}">
+                    <td>{{ eleve.nom }}</td>
+                    <td>{{ eleve.prenom }}</td>
+                    {% if eleve.dateNaiss is defined and eleve.dateNaiss is not null %}
+                        <td>{{ eleve.dateNaiss|age }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if eleve.lycee is defined and eleve.lycee != "" %}
+                        {% if eleve.lyceeAutre is defined and eleve.lyceeAutre != "" %}
+                            <td>{{ eleve.lyceeAutre }}</td>
+                        {% else %}
+                            <td>{{ eleve.lycee }}</td>
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>#}
+            </div>
+            <div class="col-md-3 listeElevesInfos">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.prenom) }}</div>
+                    <div class="col-md-6">{{ form_row(form.nom) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.autrePrenoms) }} </div>
+                    <div class="col-md-6">{{ form_row(form.nomUsage) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.mail) }} </div>
+                    <div class="col-md-6">{{ form_row(form.dateNaiss) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.telephone) }}</div>
+                    <div class="col-md-6">{{ form_row(form.telParent) }} </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.adresse) }} </div>
+                    <div class="col-md-6">{{ form_row(form.ville) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.cp) }} </div>
+                    <div class="col-md-6">{{ form_row(form.paysNaiss) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.depNaiss) }} </div>
+                    <div class="col-md-6">{{ form_row(form.villeNaiss) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.statutSocial) }}</div>
+                    <div class="col-md-6">{{ form_row(form.lunette) }} </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" id="infoLycee">{{ form_row(form.lycee) }} </div>
+                    <div class="col-md-6" id="infoLyceeAutre">{{ form_row(form.lyceeAutre) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" id="infoMetier">{{ form_row(form.metier) }} </div>
+                    <div class="col-md-6" id="infoSociete">{{ form_row(form.nomSociete) }}</div>
+                </div>
+                {{ form_rest(form) }}
+                <input type="hidden" id="infoEleveStatutSocial">
+                <input type="hidden" id="infoEleveLycee">
+                <input type="hidden" id="infoEleveLyceeAutre">
+                <button class="btn btn-success">{{ button|default("Valider") }}</button>
+                {% if msgErreur is defined and msgErreur is not null %}
+                    <p class="msgErreurListeEleves">{{ msgErreur }}</p>
+                {% endif %}
+                {{ form_end(form) }}
+            </div>
+            <div class="col-md-4">
+                <div id="listePJ">
+                    <form method="post" action="{{ path('secretaire.validationPJ') }}">
+                        <ol>
+                            <li class="secretairePJ" id="ephoto">
+                                <label for="commentaireEPHOTO">E-photo</label>
+                                <input type="text" id="commentaireEPHOTO" name="commentaireEPHOTO">
+                                <ul id="listeEPHOTO"></ul>
+                            </li>
+                            <li class="secretairePJ" id="cniEleve">
+                                <label for="commentaireCNI">CNI élève</label>
+                                <input type="text" id="commentaireCNI" name="commentaireCNI">
+                                <ul id="listeCNI"></ul>
+                            </li>
+                            <li class="secretairePJ" id="justifDom">
+                                <label for="commentaireJUSTIFDOM">Justif dom</label>
+                                <input type="text" id="commentaireJUSTIFDOM" name="commentaireJUSTIFDOM">
+                                <ul id="listeJUSTIFDOM"></ul>
+                            </li>
+                            <li class="secretairePJ" id="attestHeb">
+                                <label for="commentaireATTESHEB">Hébergement</label>
+                                <input type="text" id="commentaireATTESHEB" name="commentaireATTESHEB">
+                                <ul id="listeATTESHEB"></ul>
+                            </li>
+                            <li class="secretairePJ" id="attestJDC">
+                                <label for="commentaireJDC">JDC</label>
+                                <input type="text" id="commentaireJDC" name="commentaireJDC">
+                                <ul id="listeJDC"></ul>
+                            </li>
+                            <li class="secretairePJ" id="autrePermis">
+                                <label for="commentaireAUTREP">Autre permis</label>
+                                <input type="text" id="commentaireAUTREP" name="commentaireAUTREP">
+                                <ul id="listeAUTREP"></ul>
+                            </li>
+                            <li class="secretairePJ" id="validerANTS">
+                                <label for="validerANTS">Valider par l'ANTS ?</label>
+                                <input type="checkbox" id="validerANTS" name="validerANTS" value="oui">
+                            </li>
+                        </ol>
+                        <input type="hidden" name="idEleve" id="idEleve" required>
+                        <button class="btn btn-success">Valider</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script>
+    <script>
+        $(document).ready( function (){
+            $('#tableauEnAttente').DataTable();
+            $('#tableauATraiter').DataTable();
+            $('#tableauSaisiANTS').DataTable();
+            $('#tableauEnregistre').DataTable();
+        });
+    </script>
+    {{ encore_entry_script_tags('listeElevesJs') }}
+{% endblock %}

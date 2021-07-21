@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Connexion Élève' %}
+
+{% block body %}
+    <div class="container">
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.message | trans(error.messagedata, 'security') }}
+            </div>
+        {% endif %}
+
+        <form action="{{ path('loginEleve') }}" method="post">
+            <div class="form-group">
+                <label for="username">E-mail</label>
+                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="_password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Se connecter</button>
+        </form>
+    </div>
+
+{% endblock %}

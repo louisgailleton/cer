@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Choix du forfait" %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('choixForfaitCss') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="text-center pt-4 pb-4">FORFAITS</h1>
+        <div class="row p-3">
+            <div class="col-md-8 col-lg-8 col-sm-12 col-12 test">
+                <div class="row">
+                    {% for forfait in forfaits %}
+                        <button class="caseForfait col-md-3 col-lg-3 col-sm-12 col-12 p-4 mr-4" id="{{ forfait.libelleForfait }}" data-contenu="{{ forfait.getListeContenu() }}" data-nom="{{ forfait.libelleForfait }}" data-prix="{{ forfait.prix }}">
+                            <p>{{ forfait.libelleForfait }}</p>
+                            <p>{{ forfait.prix }} €</p>
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-4 col-sm-12 col-12 panneauLateralForfait">
+                <div class="row">
+                    <div class="col-12 detailForfait">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h2 class="sousTitreForfait text-center pt-4">Détail forfait</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center pb-2">
+                                <div id="forfaitChoisi"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="contenuForfait"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="prixForfait" class="prixForfaitPanier text-center"></div>
+                            </div>
+                        </div>
+                        <div class="row pt-2 pb-4">
+                            <div class="col-12 text-center">
+                                <button class="btn" id="ajoutForfaitPanier">Je choisis ce forfait</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col panierForfait">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h2 class="sousTitreForfait pt-4 pb-4">Panier</h2>
+                            </div>
+                        </div>
+                        <div id="contenuPanierForfait" class="text-center"></div>
+                        {% if eleve.getEvalPre().dateEvaluation is defined and eleve.getEvalPre().dateEvaluation is not null %}
+                            {#
+                                SITE EN COURS
+                            {{ form_start(form) }}
+                            {{ form_row(form.forfait) }}
+                            <button class="btn mt-4 mx-auto" id="signerContrat">{{ button|default("Signer le contrat") }}</button>
+                            {{ form_rest(form) }}
+                            {{ form_end(form) }}#}
+                            <button class="btn mt-4 mx-auto" id="signerContrat">Signer le contrat</button>
+                        {% else %}
+                            <p class="etapesPreForfait">Merci de valider les étapes précédentes avant de choisir votre forfait</p>
+                        {% endif %}
+                        <p class="pt-4 text-center">La signature du contrat donnera ensuite lieu au paiement du forfait choisi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('choixForfait') }}
+{% endblock %}
+

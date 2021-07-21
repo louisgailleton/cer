@@ -1,0 +1,36 @@
+main {
+  margin: 20px 10px;
+  padding: 0;
+  font-family: "Poppins Regular", sans-serif;
+  font-size: 14px;
+}
+
+.pastilleVerte {
+  color: limegreen;
+}
+
+.pastilleRouge {
+  color: red;
+}
+
+.pastille {
+  margin-top: 0.5%;
+  margin-right: 0.5%;
+  float: right;
+}
+
+.right {
+  float: right;
+}
+
+#btnDone {
+  width: 1000px;
+}
+
+.hide{
+  display: none;
+}
+
+#divIncident{
+  margin-top: 10%;
+}

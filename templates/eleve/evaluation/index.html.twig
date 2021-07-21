@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Évaluation préalable' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('evalPre') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container pb-4 pt-4">
+        <h1 class="pb-4">Évaluation préalable</h1>
+        <p>Vous allez effectuer votre évaluation de départ. Prévoir environ 20 minutes</p>
+        <p class="pt-4">
+            Cette évaluation est obligatoire et va permettre d'estimer le nombre d'heures de formation qu'il vous faudrait pour passer l'examen de conduite.
+            Il n'impose pas un nombre d'heures, c'est un prévisionnel. Ce prévisionnel pourra être revu à la baisse ou à la hausse,
+            par votre implication dans la formation, votre assiduité, ainsi que par la fréquence de vos heures de conduite.
+        </p>
+
+        {% if app.user.formulaireInscription == '1' %}
+            <a href="{{ path('eleve.evaluation.partie1') }}" class="btn mt-4" id="start">Je commence</a>
+        {% else %}
+            <p class="evalMsgEtapePre">Merci de réaliser les étapes précédentes avant de réaliser votre évaluation préalable</p>
+        {% endif %}
+    </div>
+{% endblock %}

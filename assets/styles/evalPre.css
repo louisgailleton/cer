@@ -1,0 +1,81 @@
+.titreEval {
+    font-weight: bold;
+}
+
+.titreExo {
+    font-weight: bold;
+}
+
+.sousTitreEval {
+    text-decoration: underline;
+}
+
+.listeEtapeInsta {
+    list-style-type: none;
+}
+
+.boldList {
+    font-weight: bold;
+    color:#F87217;
+}
+
+.listeEtapeInsta label {
+    margin-bottom: -5px;
+}
+
+#validationEvalPre {
+    display: none;
+    color: white;
+    background-color: #F87217;
+    border-radius: 20px;
+    border: 2px solid #F87217;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#validationEvalPre:hover {
+    color: #F87217;
+    background-color: transparent;
+}
+
+#messageErreurEval {
+    display: none;
+}
+
+#start {
+    color: white;
+    background-color: #F87217;
+    border-radius: 20px;
+    border: 2px solid #F87217;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#start:hover {
+    color: #F87217;
+    background-color: transparent;
+}
+
+#continue {
+    color: white;
+    background-color: #F87217;
+    border-radius: 20px;
+    border: 2px solid #F87217;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#continue:hover {
+    color: #F87217;
+    background-color: transparent;
+}
+
+.texteGras {
+    font-weight: bold;
+}
+
+.evalMsgEtapePre {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: red;
+}

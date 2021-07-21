@@ -1,0 +1,38 @@
+.container {
+    height: 100vh;
+}
+
+
+nav {
+    background-color: #F87217;
+    z-index: 500;
+}
+
+footer {
+    background-color: #0f2645;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#btn_inscription {
+    border-radius: 20px;
+    background-color: #F87217;
+    border: 1px #F87217 solid;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+#btn_inscription:hover {
+    color: #F87217;
+    background-color: transparent;
+    border: 1px #F87217 solid;
+}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une/des Indisponibilités à {{moniteur.username}}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('crudIndispo') }}{% endblock %}
+{% endblock %}
+{% block body %}
+	<h1 class='d-flex justify-content-center'>Ajouter une/des Indisponibilitée(s) à {{moniteur.username}}</h1>
+	<div class="container col-md-6">
+		<div id='indispos'>
+			<div id="1" class="d-flex justify-content-center">
+				<span>#1</span>
+				<div class="col-6">
+					<label for="debut1" class="col-2 col-form-label">Début</label>
+					<input class="form-control" type="datetime-local" id="debut1">
+				</div>
+				<div  class="col-6">
+					<label for="fin1" class="col-2 col-form-label">Fin</label>
+					<input class="form-control" type="datetime-local" id="fin1">
+				</div>
+			</div>
+		</div>
+		<div class='d-flex justify-content-center'>
+			<a id='btnPlus' class='btn btn-primary'>
+				<i class="fas fa-plus"></i>
+			</a>
+				<a id='btnMoins' class='btn btn-danger'>
+			<i class="fas fa-minus"></i>
+			</a>
+		</div>
+		<button id='btnAddIndispo' class='btn btn-success' data-container="body" data-toggle="errorDate" data-placement="right" data-trigger="focus" data-content="Il y a des erreurs dans les dates.">Ajouter</button>
+
+
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<div data-moniteur='{{ moniteur.id}}'></div>
+	{{ encore_entry_script_tags('crud') }}
+
+{% endblock %}

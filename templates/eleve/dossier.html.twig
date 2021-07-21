@@ -1,0 +1,391 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Tableau de Bord' %}
+
+{% block body %}
+
+    <div class="container-fluid p-4">
+        <h1 class="titreDossier mb-4">MON DOSSIER</h1>
+        {% if eleve.forfait() != null %}
+
+            {% if eleve.code() == "1" %}
+                {{ form_start(formNEPH) }}
+                    <div class="row">
+                        <div class="offset-lg-2 offset-md-2 col-lg-8 col-md-8 col-sm-12">
+                            {{ form_row(formNEPH.neph) }}
+                            <button class="btn btnValider mt-4">{{ button|default("Valider") }}</button>
+                        </div>
+                    </div>
+                    {{ form_rest(formNEPH) }}
+                {{ form_end(formNEPH) }}
+                <div class="offset-lg-2 offset-md-2 col-lg-8 col-md-8 col-sm-12 pt-4">
+                    <p>Vous ne retrouvez pas votre numéro NEPH, contactez nous</p>
+                    <p>Vous vous êtes trompé dans le formulaire et vous n'avez en fait pas de numéro NEPH, cliquez <a href="{{ path('eleve.numNEPH') }}">ICI</a></p>
+                </div>
+            {% else %}
+                <p>Vous vous êtes trompé dans le formulaire et vous avez un numéro NEPH, cliquez  <a href="{{ path('eleve.numNEPH') }}">ICI</a></p>
+                <div class="row">
+                    <div class="container-fluid col-md-4 col-lg-4 col-sm-12">
+                        {# E-PHOTO #}
+                        <div class="col-md-12 mt-3 pt-1 caseDossier">
+                            <div class="row">
+                                <div class="col-8 offset-1 text-left">
+                                    <button disabled="disabled" class="nomPj ligneCase btn titreCase">E-Photo</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn ligneCase boutons2" data-toggle="modal" data-target="#modalPJ" data-type="EPHOTO" data-nom="E-Photo">+</button>
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                <div class="col-10 offset-1">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4fl_lInqFvw" options=""></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for pj in piecesJointes %}
+                                {% if(pj.typePj == "EPHOTO") %}
+                                    {% if pj.etat != "1" %}
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <a href="{{ asset('piecesjointes/' ~ pj.nomFichierUnique) }}" target="_blank" class="text-center">{{ pj.nomFichier }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="row pb-2">
+                                            <div class="col-12 text-center">
+                                                <form method="post" class="formSupprPJ" action="{{ path('eleve.supprimerPJ', {'id': pj.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pj.id) }}">
+                                                    <button class="btn btn-danger btn-sm boutons">X</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if eleve.commentaireEPHOTO() is defined %}
+                                <p class="commentairePJ">{{ eleve.commentaireEPHOTO() }}</p>
+                            {% endif %}
+                        </div>
+
+                        {# CNI ÉLEVE #}
+                        <div class="col-md-12 mt-3 pt-1 caseDossier">
+                            <div class="row">
+                                <div class="col-8 offset-1 text-left">
+                                    <button disabled="disabled" class="nomPj ligneCase btn titreCase">CNI élève recto/verso</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn ligneCase boutons2" data-toggle="modal" data-target="#modalPJ" data-type="CNI" data-nom="Carte nationale d'identité">+</button>
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                <div class="col-10 offset-1">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4fl_lInqFvw" options=""></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for pj in piecesJointes %}
+                                {% if(pj.typePj == "CNI") %}
+                                    <div class="row listePJ">
+                                        <div class="col-12 text-center">
+                                            <a href="{{ asset('piecesjointes/' ~ pj.nomFichierUnique) }}" target="_blank" class="text-center">{{ pj.nomFichier }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row pb-2">
+                                        <div class="col-12 text-center">
+                                            <form method="post" class="formSupprPJ" action="{{ path('eleve.supprimerPJ', {'id': pj.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" class="text-center" value="{{ csrf_token('delete' ~ pj.id) }}">
+                                                <button class="btn btn-danger btn-sm boutons">X</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            {% if eleve.commentaireCNI() is defined %}
+                                <p class="commentairePJ">{{ eleve.commentaireCNI() }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="container-fluid col-lg-4 col-md-4 col-sm-12">
+                        {# JUSTIFICATIF DE DOMICILE #}
+                        <div class="col-md-12 mt-3 pt-1 caseDossier">
+                            <div class="row">
+                                <div class="col-8 offset-1 text-left">
+                                    <button disabled="disabled" class="nomPj ligneCase btn titreCase">Justificatif de domicile</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn ligneCase boutons2" data-toggle="modal" data-target="#modalPJ" data-type="JUSTIFDOM" data-nom="Justificatif de domicile">+</button>
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                <div class="col-10 offset-1">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4fl_lInqFvw" options=""></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% for pj in piecesJointes %}
+                                {% if(pj.typePj == "JUSTIFDOM") %}
+                                    <div class="row listePJ">
+                                        <div class="col-12 text-center">
+                                            <a href="{{ asset('piecesjointes/' ~ pj.nomFichierUnique) }}" target="_blank" class="text-center">{{ pj.nomFichier }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row pb-2">
+                                        <div class="col-12 text-center">
+                                            <form method="post" class="formSupprPJ" action="{{ path('eleve.supprimerPJ', {'id': pj.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pj.id) }}">
+                                                <button class="btn btn-danger btn-sm boutons">X</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            {% if eleve.commentaireJUSTIFDOM() is defined %}
+                                <p class="commentairePJ">{{ eleve.commentaireJUSTIFDOM() }}</p>
+                            {% endif %}
+                        </div>
+
+                        {# ATTESTATION HÉBERGEMENT #}
+                        <div class="col-md-12 caseDossier mt-3 pt-1">
+                            <div class="row">
+                                <div class="col-8 offset-1 text-left">
+                                    <button disabled="disabled" class="nomPj ligneCase btn titreCase">Attestation d'hébergement</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn ligneCase boutons2" data-toggle="modal" data-target="#modalPJ" data-type="ATTESHEB" data-nom="Attestation d'hébergement">+</button>
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                <div class="col-10 offset-1">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4fl_lInqFvw" options=""></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pb-2"><p class="questionJustifDom">Le justificatif de domicile est-il au nom de l'élève ?</p></div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <button class="btn text-center boutons float-right" id="btnJustifOui">Oui</button>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <button class="btn text-center boutons"  id="btnJustifNon" data-toggle="modal" data-target="#modalAttesHeb">Non</button>
+                                </div>
+                            </div>
+
+                            <p class="mt-2" id="messageAttestation"></p>
+
+                            {% for pj in piecesJointes %}
+                                {% if(pj.typePj == "ATTESHEB") %}
+                                    <div class="row listePJ">
+                                        <div class="col-12 text-center">
+                                            <a href="{{ asset('piecesjointes/' ~ pj.nomFichierUnique) }}" target="_blank" class="text-center">{{ pj.nomFichier }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row pb-2">
+                                        <div class="col-12 text-center">
+                                            <form method="post" class="formSupprPJ" action="{{ path('eleve.supprimerPJ', {'id': pj.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pj.id) }}">
+                                                <button class="btn btn-danger btn-sm boutons">X</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            {% if eleve.commentaireATTESHEB() is defined %}
+                                <p class="commentairePJ">{{ eleve.commentaireATTESHEB() }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="container-fluid col-lg-4 col-md-4 col-sm-12">
+                        {# ATTESTATION JDC #}
+                        <div class="col-md-12 mt-3 pt-1 caseDossier">
+                            <div class="row">
+                                <div class="col-8 offset-1 text-left">
+                                    <button disabled="disabled" class="nomPj ligneCase btn titreCase">Attestation JDC</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn ligneCase boutons2" data-toggle="modal" data-target="#modalPJ" data-type="JDC" data-nom="JDC">+</button>
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                <div class="col-10 offset-1">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4fl_lInqFvw" options=""></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for pj in piecesJointes %}
+                                {% if(pj.typePj == "JDC") %}
+                                    <div class="row listePJ">
+                                        <div class="col-12 text-center">
+                                            <a href="{{ asset('piecesjointes/' ~ pj.nomFichierUnique) }}" target="_blank" class="text-center">{{ pj.nomFichier }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row pb-2">
+                                        <div class="col-12 text-center">
+                                            <form method="post" class="formSupprPJ" action="{{ path('eleve.supprimerPJ', {'id': pj.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pj.id) }}">
+                                                <button class="btn btn-sm boutons">X</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            {% if eleve.commentaireJDC() is defined %}
+                                <p class="commentairePJ">{{ eleve.commentaireJDC() }}</p>
+                            {% endif %}
+                        </div>
+
+                        {# AUTRE PERMIS #}
+                        <div class="col-md-12 mt-3 pt-1 caseDossier">
+                            <div class="row">
+                                <div class="col-8 offset-1 text-left">
+                                    <button disabled="disabled" class="nomPj ligneCase btn titreCase">Autres permis</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn ligneCase boutons2" data-toggle="modal" data-target="#modalPJ" data-type="AUTREP" data-nom="Autres permis">+</button>
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                <div class="col-10 offset-1">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4fl_lInqFvw" options=""></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% for pj in piecesJointes %}
+                                {% if(pj.typePj == "AUTREP") %}
+                                    <div class="row listePJ">
+                                        <div class="col-12 text-center">
+                                            <a href="{{ asset('piecesjointes/' ~ pj.nomFichierUnique) }}" target="_blank" class="text-center">{{ pj.nomFichier }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row pb-2">
+                                        <div class="col-12 text-center">
+                                            <form method="post" class="formSupprPJ" action="{{ path('eleve.supprimerPJ', {'id': pj.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pj.id) }}">
+                                                <button class="btn btn-danger btn-sm boutons">X</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            {% if eleve.commentaireAUTREP() is defined %}
+                                <p class="commentairePJ">{{ eleve.commentaireAUTREP() }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal PJ -->
+                <div class="modal fade" id="modalPJ" tabindex="-1" role="dialog" aria-labelledby="modalPJ" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalPJ"></h5>
+                                <button type="button" class="close boutons" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {{ form_start(form) }}
+                                {{ form_row(form.nomFichier) }}
+                                {{ form_row(form.typePJ, {'value' : ''}) }}
+                                {{ form_rest(form) }}
+                                <button class="btn btn-success boutons">Valider</button>
+                                {{ form_end(form) }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary boutons" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal ATTESTATION -->
+                <div class="modal fade" id="modalAttesHeb" tabindex="-1" role="dialog" aria-labelledby="modalAttesHeb" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalAttesHeb">Générer votre attestion d'hébergement</h5>
+                                <button type="button" class="close boutons" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-row form-group">
+                                        <div class="col">
+                                            <label for="prenomHeb">Prénom de l'hébergeant</label>
+                                            <input type="text" class="form-control" id="prenomHeb" placeholder="Prénom">
+                                        </div>
+                                        <div class="col">
+                                            <label for="nomHeb">Nom de l'hébergeant</label>
+                                            <input type="text" class="form-control" id="nomHeb" placeholder="Nom">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="adresseHeb">Vérifier votre adresse</label>
+                                        <input type="text" class="form-control" id="adresseHeb" value="{{app.user.adresse}}, {{ app.user.cp }} {{ app.user.ville }}">
+                                    </div>
+                                    <input type="hidden" class="form-control" id="prenomEleve" value="{{ app.user.prenom }}">
+                                    <input type="hidden" class="form-control" id="nomEleve" value="{{ app.user.nom }}">
+                                    {% if eleve.dateNaiss() != null %}
+                                        <input type="hidden" class="form-control" id="dteNaissEleve" value="{{ app.user.dateNaiss.format('d m Y') }}">
+                                    {% endif %}
+                                    <input type="hidden" class="form-control" id="villeNaissEleve" value="{{ app.user.villeNaiss }}">
+                                </form>
+                                <p id="messageQuestionnaire"></p>
+                                <a href="#" class="btn btn-primary boutons2" id="telechargementAttestation">Télécharger votre attestation d'hébergement</a>
+
+                                <div id="consigneAttestation" class="pt-2">
+                                    <div class="row">
+                                        <div class="col-10 offset-1 text-left">
+                                            <p><strong>Merci de :</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-10 offset-1 text-left">
+                                            <ul>
+                                                <li>Imprimer votre attestation</li>
+                                                <li>La signer</li>
+                                                <li>La scanner</li>
+                                                <li>La télécharger sur le site</li>
+                                                <li>Joindre la carte d'identité de l'hébergeant</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary boutons" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="text-center mt-4 mb-4">
+                    <a href="{{ path('eleve.validerDossier') }}" class="btn btn-success boutons">Dossier Complet</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <h4 class="etapesPreDossier">Merci de valider les étapes précédentes avant de  remplir votre dossier</h4>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('monDossier') }}
+{% endblock %}

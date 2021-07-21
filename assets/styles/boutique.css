@@ -1,0 +1,139 @@
+nav {
+    background-color: #F87217;
+}
+
+footer {
+    background-color: #0f2645;
+    color: white;
+    position: absolute;
+    bottom: 0 !important;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+#btn_payer {
+    color: white;
+    background-color: #F87217;
+    border-radius: 20px;
+    border: 2px solid #F87217;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+  
+#btn_payer:hover {
+    background-color: white;
+    color:#F87217;
+}
+
+.ease_line {
+    
+    color: #0f2645;
+    text-decoration: none;
+
+}
+
+.ease_line::after {
+    content: '';
+    display:block;
+    width: 0;
+    height: 2px;
+    background: #0f2645;
+    transition: width .3s;
+}
+
+.ease_line:hover::after {
+    width:250px;
+    transition: width .3s;
+}
+
+a {
+    text-decoration: none;
+    color: #0f2645;
+    transition-property: font-weight;
+    transition-duration: .2s;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #0f2645;
+    font-weight: bold;
+}
+
+#part_4 p {
+    margin-bottom:0;
+    margin-top: 1rem;
+}
+
+.droite {
+    border: solid 2px #0f2645;
+    border-radius: 20px;
+}
+
+.produitBoutique {
+    margin-bottom: 10px;
+}
+
+.prixProduitBoutique {
+    float: right;
+}
+
+#ajouterForfaitPannierBoutique {
+    display: none;
+}
+
+.messageEtapePrecedenteBoutique {
+    color: red;
+}
+
+.titreForfaitSelectionne {
+    font-weight: bold;
+}
+
+.cadre {
+    border: 2px solid #0f2645;
+    border-radius: 20px;
+}
+
+.btn_presta {
+    background-color: #0f2645;
+    color: white;
+    border: #0f2645 solid 2px;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+    width: 100%;
+}
+
+.btn_presta:hover {
+    background-color: transparent;
+    color: #0f2645;
+}
+
+.btn-suppr {
+    background-color: #0f2645;
+    color: white;
+    border: solid 2px #0f2645;
+    border-radius: 20px;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+}
+
+.btn-suppr:hover {
+    background-color: transparent;
+    color: #0f2645;
+}
+
+.bold_text {
+    font-weight: bold;
+}
+
+form > li {
+    vertical-align: middle;
+}
